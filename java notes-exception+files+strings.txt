@@ -1,0 +1,663 @@
+Java: OOPs
+==========
+Project Structure
+	- Access specifiers of a class
+	- Access specifiers of the method 
+Class fundamentals
+	- variables
+	- methods
+	- working with Object 
+Inheritance
+	- Overriding & overloading 
+	- polymorphism
+Keywords
+	- final
+	- static
+	- abstract
+Interfacing
+Constructor
+Encapsulation
+
+Java Part-II
+============
+- Exception Handling
+- String & StringBuilder classes
+- File I/O 
+
+- Arrays
+- Generics and Collections Framework 
+
+- Threads 
+
+- JDBC API 
+
+Exception Handling
+==================
+Example 1: 
+----------
+
+public class App {
+	public static void main(String[] args) {
+		A a=new A(); 
+		int ans = a.computeDiv(10,0);
+		System.out.println("Ans is: " + ans);
+		
+		System.out.println("Thank you!!");
+	}
+}
+
+class A{
+	public int computeDiv(int i, int j) {
+		return i/j;
+	}
+}
+
+In the above program, "return i/j" throws an ArithmeticException which propogates to main method "int ans = a.computeDiv(10,0);". 
+
+Since this exception is unhandled, the program stops and the output shows Exception thrown
+
+OUTPUT: 
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at com.main.A.computeDiv(App.java:15)
+	at com.main.App.main(App.java:6)
+
+NOTE: Unhandled Exception halt the entire system. 
+
+
+Example 2: 
+
+public class App {
+	public static void main(String[] args) {
+		A a=new A();
+		try {
+			int ans = a.computeDiv(10,0);
+			System.out.println("Ans is: " + ans);
+		}
+		catch(ArithmeticException e) {
+			System.out.println("Divide by Zero Not allowed");
+		}
+		
+		System.out.println("Thank you!!");
+	}
+}
+
+class A{
+	public int computeDiv(int i, int j) {
+		return i/j;
+	}
+}
+
+In this program, the exception thrown at "return i/j;" is handled by main method using try-catch block. 
+This means that since the exception is handled, the program execution continues and we get thank you in the output. 
+
+OUTPUT: 
+Divide by Zero Not allowed
+Thank you!!
+ 
+
+Program: 
+Compute the length of the name given. 
+Validations: 
+if name is null, display "name cannot be NULL"
+if name is blank("") display "name cannot be blank". 
+
+
+Solution: 
+
+public class App {
+	public static void main(String[] args) {
+		A a=new A();
+		try {
+			int ans  = a.computeLength(""); 
+			System.out.println("Length is " + ans);
+		}
+		catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
+		catch(RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println("Thank you!!");
+	}
+}
+class A{
+	public int computeLength(String name) {
+		 if(name == null)
+			 throw new NullPointerException("name cannot be NULL"); 
+		 if(name.equals(""))
+			 throw new RuntimeException("name cannot be blank");
+		 
+		return name.length();
+	}
+	 
+}
+
+Program: Checked/Unchecked Exceptions
+
+
+public class App {
+	public static void main(String[] args){
+		A a=new A();
+		a.m1(); 
+		
+		try{ 
+			a.m2(); 
+		}
+		catch(Exception e) { 
+			System.out.println("exception");
+		}
+		
+		System.out.println("thanks");
+	}
+}
+
+class A{
+	 void m1(){
+		 throw new RuntimeException(); //Unchecked Exception
+	 }
+	 
+	 void m2() throws Exception{
+		  throw new Exception(); //checked Exception 
+	 }
+}
+
+/*
+ *  Checked/Unchecked happens during compile time. 
+ *  During runtime, all exceptions are treated equally. 
+ *  
+ *  Rule 1: 
+ *  If a checked Exception is thrown, 
+ *  either Warn
+ *  OR handle
+ *  OR do both(Ideally)
+ *  
+ *  
+ *  Rule 2: 
+ *  If a method is called that warns about the CheckedException, 
+ *  main method must 
+ *  either handle or warn
+ */
+
+Case Study: 
+----------
+Take marks scored and total_marks as input from the User.
+Compute percent using formula 
+percent = (marksScored * 100) / totalMarks
+
+Based on the percentage, compute Grade,
+
+percent > 75: Grade A
+percent > 60: Grade B
+percent > 45: Grade C
+			: Grade D 
+
+Validations: 
+------------
+If marksScored > totalMarks : IllegalMarksException 
+		: "MarksScored cannot be > total marks"
+If marksScored < 0 : InvalidMarksException 
+		: Marks Scored cannot be < 0 
+If totalMarks < 100: InvalidTotalMarksException
+		: Total Marks cannot be < 100
+
+ 
+Solution: 
+
+IllegalMarksException.java
+--------------------------
+package com.main.exception;
+
+public class IllegalMarksException extends Exception{
+	 
+	private static final long serialVersionUID = 1L;
+	
+	private String message; 
+	
+	public IllegalMarksException(String message) {
+		this.message = message; 
+	}
+	
+	public String getMessage(){
+		return message; 
+	}
+}
+/*
+	Constructors are used to initialize instance variables.
+*/
+
+InvalidMarksException.java
+--------------------------
+package com.main.exception;
+
+public class InvalidMarksException extends Exception{
+
+	private static final long serialVersionUID = 1L;
+	
+	private String message; 
+	
+	public InvalidMarksException(String message) {
+		 this.message = message;
+	}
+
+	public String getMessage(){
+		return message; 
+	}
+}
+
+InvalidTotalMarksException.java
+--------------------------------
+package com.main.exception;
+
+public class InvalidTotalMarksException extends Exception{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private String message; 
+	
+	public InvalidTotalMarksException(String message) {
+		 this.message = message;
+	}
+	
+	public String getMessage(){
+		return message; 
+	}
+
+}
+
+App.java
+--------
+package com.main;
+
+import java.util.Scanner;
+
+import com.main.exception.IllegalMarksException;
+import com.main.exception.InvalidMarksException;
+import com.main.exception.InvalidTotalMarksException;
+import com.main.service.ResultService;
+
+public class App {
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Marks Scored");
+		double marksScored = sc.nextDouble();
+		
+		System.out.println("Enter Total Marks");
+		double totalMarks = sc.nextDouble();
+		
+		ResultService rservice = new ResultService();
+		try {
+			double percent = rservice.computePercent(marksScored,totalMarks);
+			System.out.println("You Scored: " + percent + "%");
+			String grade = rservice.computeGrade(percent);
+			System.out.println("Grade is " + grade);
+		}
+		catch(IllegalMarksException e) {
+			System.out.println(e.getMessage());
+		}
+		catch(InvalidMarksException e) {
+			System.out.println(e.getMessage());
+		}
+		catch(InvalidTotalMarksException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println("thank you!!");
+	}
+}
+
+ResultService.java
+------------------
+package com.main.service;
+
+import com.main.exception.IllegalMarksException;
+import com.main.exception.InvalidMarksException;
+import com.main.exception.InvalidTotalMarksException;
+
+public class ResultService {
+
+	public double computePercent(double marksScored, double totalMarks) 
+	throws IllegalMarksException,InvalidMarksException,InvalidTotalMarksException {
+		
+		if(marksScored > totalMarks)
+			throw new IllegalMarksException("MarksScored cannot be > total marks");
+		if(marksScored < 0)
+			throw new InvalidMarksException("Marks Scored cannot be < 0 ");
+		if(totalMarks < 100)
+			throw new InvalidTotalMarksException("Total Marks cannot be < 100"); 
+		
+		double percent = (marksScored * 100) / totalMarks;
+		return percent;
+	}
+
+	public String computeGrade(double percent) {
+		 if(percent > 75)
+			 return "A";
+		 if(percent > 60)
+			 return "B";
+		 if(percent > 45)
+			 return "C";
+		 
+		return "D";
+	}
+
+}
+
+O/P:
+----
+Enter Marks Scored
+80
+Enter Total Marks
+90
+Total Marks cannot be < 100
+thank you!!
+
+
+String and StringBuilder class
+=============================
+
+String can be created in 2 possible ways: 
+1. Using String Literal 
+2. Using String Object 
+
+Program: Comparing Strings 
+
+public class App {
+	public static void main(String[] args) {
+		//String Literal
+		String s1 ="harry";
+		//String Object
+		String s2 = new String("harry");
+		
+		/*
+		 * Literals are saved in String pool 
+		 * Objects go in the Heap
+		 */
+		
+		/*
+		 * String Comparision
+		 * - equals() method : compares values
+		 * - == operator : compares locations
+		 */
+		
+		System.out.println(s1.equals(s2)); //TRUE
+		System.out.println(s1 == s2); //FALSE
+		
+	}
+}
+
+Program 2: Working with Immutability of String 
+
+public class App {
+	public static void main(String[] args) {
+		//String Literal
+		String s1 ="harry";
+		//String Object
+		String s2 = new String("harry");
+		
+		String s3 = "harry"; 
+		String s4=new String("harry");
+		
+		s1="ronald";
+		System.out.println(s1);
+	}
+}
+/*
+	Pool does not take duplicates
+	Strings are immutable
+*/
+
+
+Program 3: Working with String methods. 
+
+public class App {
+	public static void main(String[] args) {
+		String s1 ="harry";
+
+		/*
+		 * concat method: add the new string at the end of existing string 
+		 */
+		s1= s1.concat(" potter"); 
+		System.out.println(s1);//harry potter
+		
+		/*
+		 * trim() : trim deletes whitespaces before and after the String 
+		 */
+		String name = "                                harry potter                      ";
+		System.out.println(name.length()); //66
+		name = name.trim();
+		System.out.println(name.length());//12
+		
+		String s = " java duke ";
+		s = s.trim();
+		System.out.println(s);//java duke
+		
+		/*
+		 * split : it splits String on the bases of Regex(delimiter) provided
+		 * and returns an array of string elements
+		 */
+		String info="harry potter hogwards";
+		String[] arr = info.split(" ");//["harry", "potter","hogwards"]
+		String fname = arr[0]; 
+		String lname = arr[1]; 
+		String school = arr[2];
+		System.out.println(fname + " " + lname + " goes to " + school);
+		
+		/*
+		 * substring : it will extract the substring from original string 
+		 */
+		
+		name = "hermione granger hogwards"; 
+		fname = name.substring(0,name.indexOf(" ")) ; //[0-3] - 4 is excluded
+		System.out.println(fname); //hermione
+	}
+}
+
+Program 4: Working with StringBuilder class. 
+
+StringBuilder is not Immutable. 
+
+
+public class App {
+	public static void main(String[] args) {
+		 StringBuilder sb1 = new StringBuilder("harry");
+		 
+		 sb1.append(" potter"); 
+		 System.out.println(sb1); //harry potter
+		 
+		 /*
+		  * String to StringBuilder 
+		  */
+		 
+		 String str = "jack";
+		 StringBuilder sb2 = new StringBuilder(str);
+		 sb2.append(" sparrow");
+		 
+		 str = sb2.toString();
+		 System.out.println(str); //jack sparrow
+		 
+		 /*
+		  * Do not use StringBuider for string comparision
+		  */
+		 StringBuilder sb3 = new StringBuilder("harry"); //300X
+		 StringBuilder sb4 = new StringBuilder("harry"); //400X
+		 
+		 System.out.println(sb3.equals(sb4)); //false
+		 System.out.println(sb3 == sb4);//false
+		 
+		 System.out.println(sb3.toString().equals(sb4.toString())); //true
+	}
+}
+
+
+Working with Files
+==================
+- Always create a File Handler/File Pointer to work with files. 
+
+Program: Create file using File Handler, FilerWriter and PrintWriter classes. 
+
+
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class App {
+	public static void main(String[] args) {
+		  File file = new File("myfile.txt"); //file handler / file pointer
+		  
+		  try{ 
+			  file.createNewFile();
+			  System.out.println("file created..");
+		  }
+		  catch(IOException e) {
+			  System.out.println("file creation problem");
+		  }
+		  
+		  /*
+		   * Create a file with FileWriter class
+		   */
+		  try {
+			FileWriter fw = new FileWriter("myfilenew.txt");
+			System.out.println("file created..");
+			fw.close();
+		} catch (IOException e) {
+			System.out.println("file creation error..");
+		}
+		  
+		 /*
+		  * create a file using PrintWriter 
+		  */
+		  try {
+			PrintWriter pw = new PrintWriter(new FileWriter("myfilenew1.txt"));
+			System.out.println("file created..");
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("file creation error..");
+		}
+		 
+	}
+}
+
+Part-II
+-------
+Writing the data to the file 
+
+
+Program: 
+
+public static void main(String[] args) {
+		  File file = new File("myfile.txt"); //file handler / file pointer
+		  /*
+		   * FileWriter transfer data to the file thru the Stream char by char. 
+		   */
+		  try {
+			FileWriter fw = new FileWriter(file); 
+			fw.write("hey harry\n");
+			fw.write("from hogwards");
+			fw.close();
+		} catch (IOException e) {
+			 System.out.println("File creation issue..");
+		} 
+		  
+		/*
+		 * PrintWriter: it transfer data line by line   
+		 */
+		  try {
+			PrintWriter pw = new PrintWriter(new FileWriter("mynewfile.txt"));
+			pw.println("harry potter");
+			pw.print("how r u?");
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		  
+
+Part-III
+--------
+Reading the Data from the file. 
+
+Program: 
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
+ 
+public class App {
+	public static void main(String[] args) {
+		  File file = new File("myfile.txt"); //file handler / file pointer
+		  char[] carray = new char[100];
+		  
+		  try {
+			FileReader fr = new FileReader(file);
+			fr.read(carray);
+			
+			for(char temp : carray) {
+				System.out.print(temp);
+			}
+			
+			fr.close();
+		  } 
+		  catch (FileNotFoundException e) {
+			  	e.printStackTrace();
+		  }
+		  catch (IOException e) {
+				e.printStackTrace();
+		  }
+		  
+		  System.out.println("****************************");
+		  /*
+		   * Reading data from file using Scanner class 
+		   */
+		  File file1 = new File("mynewfile.txt");
+		  try {
+			Scanner sc = new Scanner(file1);
+			
+			while(sc.hasNextLine()) {
+				String str = sc.nextLine();
+				System.out.println(str);
+			}
+			sc.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,228 @@
+Mongo DB
+--------
+Create DB
+---------
+use mavericks_hex
+
+Insert the document
+===================
+db.employee.insert( {
+name: 'Harry Potter', 
+salary: 80000,
+city: 'london',
+department: 'IT'
+});
+
+db.employee.insert( {
+name: 'Ronald Weasley', 
+salary: 70000,
+city: 'manchester',
+department: 'ADMIN'
+});
+
+db.employee.insertMany([
+{
+name: 'Hermione Granger', 
+salary: 95000,
+city: 'london',
+department: 'SALES'
+},
+{
+name: 'Draco Malfoy', 
+salary: 80000,
+city: 'manchester',
+department: 'IT'
+}
+]);
+
+db.employee.insertMany([
+{
+name: 'Frodo Baggins', 
+salary: 90000,
+city: 'shire',
+department: 'IT'
+},
+{
+name: 'Samwise Gamaje', 
+salary: 70000,
+city: 'shire',
+department: 'SALES'
+}
+]);
+
+display the documents
+======================
+db.employee.find()
+db.employee.find().pretty()
+
+Remove the record/document
+==========================
+db.employee.remove({
+"_id" : ObjectId("62c43faf782c024235dbe998")
+});
+
+O/P:
+WriteResult({ "nRemoved" : 1 })
+
+Update the Document/Record
+==========================
+Before Update
+-------------
+{
+        "_id" : ObjectId("62c43f07782c024235dbe994"),
+        "name" : "Ronald Weasley",
+        "salary" : 70000,
+        "city" : "manchester",
+        "department" : "ADMIN"
+}
+
+db.employee.update(
+{"_id" : ObjectId("62c43f07782c024235dbe994") },
+{ $set: {salary: 75000} }
+);
+
+O/P:
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+After Update
+------------
+{
+        "_id" : ObjectId("62c43f07782c024235dbe994"),
+        "name" : "Ronald Weasley",
+        "salary" : 75000,
+        "city" : "manchester",
+        "department" : "ADMIN"
+}
+
+
+Fetch the record based on ID
+=============================
+db.employee.findOne(
+{"_id" : ObjectId("62c43d90782c024235dbe993")}
+)
+
+db.employee.findOne(
+{"department" : "IT"}
+)
+
+db.employee.find(
+{"department" : "IT"}
+).pretty()
+
+Note: findOne() always returns Single Record. If multiple records satisfy the condition, it will return the FIRST record that satisfies the condition. 
+
+To display all records satisfying the condition given, use find() method. 
+
+
+Operators in Mongo
+==================
+$eq: equals 
+$lt: less than
+$lte: less than or equal to 
+$gt: greater than
+$gte: greater than or equal to
+$ne: not equal to 
+$in: checks in the array of values 
+$nin: not in, opposite of in
+
+db.employee.find(
+{"department": {$eq: "IT"}}
+).pretty()
+
+db.employee.find(
+{"salary": {$lt: 80000}}
+).pretty()
+
+db.employee.find(
+{"salary": {$lte: 80000}}
+).pretty()
+
+
+db.employee.find(
+{"salary": {$gt: 80000}}
+).pretty()
+
+
+db.employee.find(
+{"salary": {$gte: 80000}}
+).pretty()
+
+Q. Display all records that does not belong to 'SALES' department
+
+db.employee.find(
+{"department": {$ne: "SALES"}}
+).pretty()
+
+Q. Display all records that have city in following list: 
+['london', 'new york','manchester']
+
+db.employee.find({
+ city: {$in: ['london', 'new york','manchester'] }
+}).pretty()
+
+
+AND & OR Operation
+------------------
+
+Display the records of employees having salary greater than 80000 and that live in either of the following city: 
+['london', 'new york','manchester']
+
+db.employee.find(
+{ $and: [
+	{salary: {$gte: 80000 }},
+	{city: {$in: ['london', 'new york','manchester'] }}
+  ] }
+).pretty();
+
+
+db.employee.find(
+{ $or: [
+	{salary: {$gte: 80000 }},
+	{city: {$in: ['london', 'new york','manchester'] }}
+  ] }
+).pretty();
+
+Sorting in Mongo
+================
+Q. Display the records based on salary in ASC & DESC order. 
+
+db.employee.find().sort({salary:1}).pretty()
+db.employee.find().sort({salary:-1}).pretty()
+
+{salary:1} : ASC
+{salary:-1}: DESC
+
+
+Sorting with Other Operators
+----------------------------
+
+db.employee.find({
+ city: {$in: ['london', 'new york','manchester'] }
+}).sort({salary:1}).pretty()
+
+
+Pagination
+==========
+- limit() 
+- skip() 
+
+db.employee.find({
+ city: {$in: ['london', 'new york','manchester'] }
+}).sort({salary:1}).limit(2).skip(0).pretty()
+
+db.employee.find({
+ city: {$in: ['london', 'new york','manchester'] }
+}).sort({salary:1}).limit(2).skip(1).pretty()
+
+db.employee.find({
+ city: {$in: ['london', 'new york','manchester'] }
+}).sort({salary:1}).limit(2).skip(2).pretty()
+
+
+upsert(): update & insert: updation {id:___}
+									{$set: {salary: 60000}}
+
+save({}): insert & update 
+
+ 
+

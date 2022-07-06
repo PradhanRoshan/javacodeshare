@@ -1,0 +1,298 @@
+SQL Queries Refresher
+---------------------
+
+create database mavericks_hex;
+show databases; 
+use mavericks_hex; 
+
+/* create table */
+create table employee(ID int primary key auto_increment, 
+name varchar(255) not null, city varchar(255) , 
+salary double default 0);
+ 
+describe employee; 
+
+/* Add column departmentName to table employee */
+ALTER TABLE employee 
+ADD COLUMN departmentName varchar(255) not null;
+
+/* Inserting records in employee table */
+
+insert into employee(name,city,salary,departmentName)
+values ('harry potter', 'london', 85000, 'IT');
+
+select * from employee; 
+
+insert into employee(name,city,salary,departmentName) values 
+('ronald weasley', 'manchester', 75000, 'ADMIN'),
+('hermione granger', 'london', 95000, 'ADMIN'),
+('draco malfoy', 'london', 90000, 'IT'); 
+ 
+/* filter using where clause */
+select name,city
+from employee
+where city = 'london';
+
+select ID,name,salary
+from employee
+where salary > 80000; 
+
+select name,city
+from employee
+where salary > 80000 AND city = 'london'; 
+
+select name,salary 
+from employee
+where salary BETWEEN 80000 AND 90000; /* 80K and 90K are considered */
+
+/*  Search for patterns using LIKE */ 
+
+/*will search for string:harry. % operator indicates before and after chars*/
+select name
+from employee 
+where name LIKE '%harry%'; 
+
+/* Display names that start with alphabet 'h' */
+select name
+from employee
+where name LIKE 'H%'; 
+
+/* Display names that end with alphabet 'r' */
+select name
+from employee
+where name LIKE '%r';
+
+/* Display the names that have 'e' as its second alphabet. */ 
+select name
+from employee
+where name LIKE '_e%';
+/*
+Grouping Functions: count, min, max, avg, sum 
+*/
+/*
+Count number of employees in each city. 
+*/ 
+select city, COUNT(ID) 
+from employee
+group by city;
+/*
+	compute Max salary of employee from each department. 
+*/
+select departmentName, MAX(salary) 
+from employee
+group by departmentName; 
+
+/*
+	Compute AVG salary of employee for each department having AVG salary 
+    greater than 86000
+*/
+select departmentName,AVG(salary)  
+from employee
+group by departmentName
+having AVG(salary)> 86000;
+
+/*
+	Compute SUM of salaries of employees for each department and display the 
+    result with higher value first. The result set must have at most 5 records. 
+*/
+select departmentName,SUM(salary) as sum_sal
+from employee 
+group by departmentName
+order by sum_sal DESC
+limit 1,2; /* 1 is excluded and 3 is included */
+
+
+select * 
+from employee
+where salary> 80000
+limit 2,5;
+ 
+CREATE TABLE IF NOT EXISTS `mavericks_hex`.`instructor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `salary` DOUBLE NULL DEFAULT 0,
+  `city` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mavericks_hex`.`department` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mavericks_hex`.`course` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `credits` INT NULL,
+  `department_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_course_department_idx` (`department_id` ASC),
+  CONSTRAINT `fk_course_department`
+    FOREIGN KEY (`department_id`)
+    REFERENCES `mavericks_hex`.`department` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mavericks_hex`.`instructor_course` (
+  `Instructor_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  PRIMARY KEY (`Instructor_id`, `course_id`),
+  INDEX `fk_Instructor_has_course_course1_idx` (`course_id` ASC) ,
+  INDEX `fk_Instructor_has_course_Instructor1_idx` (`Instructor_id` ASC) ,
+  CONSTRAINT `fk_Instructor_has_course_Instructor1`
+    FOREIGN KEY (`Instructor_id`)
+    REFERENCES `mavericks_hex`.`instructor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Instructor_has_course_course1`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `mavericks_hex`.`course` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+describe instructor;
+describe course;
+describe department; 
+describe instructor_course;
+
+insert into instructor(name,salary,city) values 
+('harry potter', 85000, 'london'),
+('ronald weasley', 75000, 'manchester'),
+('hermione granger', 95000, 'london');
+
+select * from instructor;
+delete from department; 
+insert into department(id,name) values (1,'IT'),(2,'ADMIN'); 
+
+select * from department;
+
+insert into course(name,credits,department_id) values 
+('JAVA', 100, 1),
+('DBMS',80,2),
+('Project Management',80, 2),
+('Spring Boot',120,1);
+
+select * from course; 
+
+insert into instructor_course(instructor_id,course_id) values 
+(1,1), (1,4), (2,3), (3,2), (3,1);
+
+select * from instructor_course;
+
+/*
+	display instructor details that are teaching 'JAVA' course. 
+*/
+select i.id,i.name
+from instructor as i,instructor_course as ic,course as c
+where i.id = ic.Instructor_id AND 
+ic.course_id = c.id AND c.name='JAVA'; 
+
+/*
+	Display the name(s) of department that instructor ID: 1 is associated with.
+    [Use Manual Mapping Technique]
+*/
+select distinct d.name
+from instructor as i,instructor_course as ic,course as c, department as d
+where i.id = ic.Instructor_id AND 
+ic.course_id = c.id AND
+c.department_id = d.id AND 
+i.id = 1; 
+
+/*
+Nested Query / Sub Queries 
+*/
+/*
+ Display Instructor names teaching course JAVA. 
+ Use Nested Query technique
+*/
+select name 
+from instructor 
+where id IN (select instructor_id 
+            from instructor_course 
+            where course_id IN (select id 
+							   from course 
+                               where name='JAVA'));
+
+/*
+    Display the names of Instructors that are associated with Department 'IT'
+    [Use Nested Queries]
+*/
+
+/*
+ Joins: 
+ - Inner Join
+ - Left Join
+ - Right Join 
+*/
+
+/*
+ Display Instructor names teaching course JAVA. 
+ Use Joins
+*/
+select i.name
+from Instructor i JOIN instructor_course ic ON i.id=ic.instructor_id 
+JOIN course c ON ic.course_id = c.id
+where c.name='JAVA'; 
+
+/*
+	project course info along with dept info 
+*/
+select * 
+from course c JOIN department d ON c.department_id = d.id ;
+
+create table product(id int primary key auto_increment,name varchar(50)
+,price double ,vendor_id int);
+
+create table vendor(id int primary key auto_increment, name varchar(50));
+
+insert into product(name,price,vendor_id) values 
+('HP Laptop', 1200, 1),
+('Dell Laptop', 1100, 2),
+('Lenovo Laptop', 1000, 2); 
+
+insert into vendor(name) values ('ABC Elec.'), ('PQR Elec.');
+
+select * from product;
+select * from vendor;
+
+insert into product(name,price) values 
+('Apple Laptop', 1500);
+insert into vendor(name) values ('XYZ Elec.');
+
+-- inner join / natural join
+select * 
+from product p JOIN vendor v ON p.vendor_id = v.id; 
+
+-- left join / left outer join 
+select * 
+from product p LEFT JOIN vendor v ON p.vendor_id = v.id; 
+
+-- right join / right outer join 
+select * 
+from product p RIGHT JOIN vendor v ON p.vendor_id = v.id; 
+
+/* 
+Left + right = FULL 
+*/
+select * 
+from product p LEFT JOIN vendor v ON p.vendor_id = v.id
+UNION
+select * 
+from product p RIGHT JOIN vendor v ON p.vendor_id = v.id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,666 @@
+Generics and Collections
+========================
+
+Arrays
+------
+
+public class App {
+	public static void main(String[] args) {
+		/* Type 1 */
+		int[] x = {4,3,6,1,2,8,9 }; 
+		
+		/* Type 2 */
+		int[] arr = new int[10000]; //arr[0] .. a[9999] = 0
+		
+		/* Type 3 */ 
+		Integer[] arry = new Integer[]{4,3,6,1,2,8,9 };
+		
+		/* 
+		 * length of the array is final 
+		 */
+		System.out.println(arr.length);
+		//arr.length = 5000; --The final field array.length cannot be assigned
+		
+		/*
+		 * Ops: iterate : sorting(ASC-DESC) : Searching 
+		 */
+		for(int temp :arry) { //{4,3,6,1,2,8,9 }
+			System.out.print(temp + " ");
+		}
+		
+		System.out.println("\n*****************");
+		/* Sorting */ 
+		Arrays.sort(arry);  //ASC order sort 
+		
+		for(int temp :arry) { //
+			System.out.print(temp + " ");//{1,2,3,4,6,8,9 }
+		}
+		System.out.println("\n*****************");
+		Arrays.sort(arry,Collections.reverseOrder());
+		for(int temp :arry) { //
+			System.out.print(temp + " ");//DESC SORT
+		}
+		
+		/* Searching: Binary Search: Divide and Conquer */
+		System.out.println("\n*****************");
+		Arrays.sort(arry); //{1,2,3,4,6,8,9 }
+		int index  = Arrays.binarySearch(arry, 1); 
+		
+		if(index>=0)
+			System.out.println("Element found at index: " + index);
+		else
+			System.out.println("Element NOT found");
+		
+		arry = new Integer[]{3,6,1,2,8,9 };
+		Arrays.sort(arry);//{1,2,3,6,8,9 }
+		index  = Arrays.binarySearch(arry, 5); ////{1,2,3,6,8,9 }
+		//if 5 was present in the array it would have been at index 3
+		System.out.println(index);//-insertionpoint-1 = -3-1 = -4
+
+	}
+}
+
+
+List Interface
+==============
+
+ArrayList
+---------
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class App {
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<>(); //generic implementation of ArrayList
+		list.add(3); 
+		list.add(7);
+		list.add(4);
+		list.add(1);		
+		System.out.println(list);//[3, 7, 4, 1]
+		
+		/* Remove an Element from the list */
+		list.remove(0);
+		System.out.println(list);//[7, 4, 1]
+		
+		/* Sorting ArrayList  */
+		Collections.sort(list);
+		for(int i : list) {
+			System.out.print(i + " "); ////1 4 7 
+		}
+		System.out.println("\n**************");
+		Collections.reverse(list); 
+		for(int i : list) {
+			System.out.print(i + " "); //7 4 1 
+		}
+		/* Binary Search */ 
+		System.out.println("\n**************");
+		Collections.sort(list); //sorting is mandatory for binary search 
+		int index = Collections.binarySearch(list, 4);
+		System.out.println("FOUND at index " + index);
+		
+		index = Collections.binarySearch(list, 5); //-2-1 = -3
+		System.out.println(index); //-3
+		
+		/* Notable Methods in ArrayList */ 
+		//1 4 7 
+		System.out.println(list.get(1)); //4
+		 
+		if(list.contains(5))
+			System.out.println("Present");
+		else
+			System.out.println("not present");
+	}
+}
+
+
+ArrayList: Working with Custom Objects 
+
+
+package com.main;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import com.main.model.Employee;
+import com.main.utility.A;
+
+public class App {
+	public static void main(String[] args) {
+		 Employee e1 = new Employee(1,"harry",85000,"IT");
+		 Employee e2 = new Employee(2,"ronald",75000,"ADMIN");
+		 Employee e3 = new Employee(3,"hermione",95000,"SALES");
+		 Employee e4 = new Employee(4,"draco",80000,"IT");
+		 
+		/**
+		 *  List<Employee> list = new ArrayList<>();
+		 *  list.add(e1); list.add(e2);list.add(e3);list.add(e4);
+		 */
+		 List<Employee> list= Arrays.asList(new Employee[] {e3,e2,e4,e1});
+		 for(Employee e : list) {
+			 System.out.println(e);
+		 }
+		 System.out.println("***After Sorting: salary ASC***");
+		 /* Sort the list based on salary in ASC order */
+		 A a=new A();
+		 Collections.sort(list,a);
+		 
+		 for(Employee e : list) {
+			 System.out.println(e);
+		 }
+	}
+}
+
+
+
+package com.main.utility;
+
+import java.util.Comparator;
+
+import com.main.model.Employee;
+
+public class A implements Comparator<Employee>{
+
+	@Override
+	public int compare(Employee e1, Employee e2) {
+		if(e1.getSalary() < e2.getSalary())
+			return -1;
+		if(e1.getSalary() > e2.getSalary())
+			return 1; //swap
+		if(e1.getSalary() == e2.getSalary())
+			return 0; 
+		
+		return 0;
+	}
+
+}
+/*
+e1.salary < e2.salary : [e1,e2] : -1
+e1.salary > e2.salary : [e2,e1]: swap : 1
+e1.salary == e2.salary: [e1,e2]: 0
+*/
+
+O/P:
+Employee [id=3, name=hermione, salary=95000.0, department=SALES]
+Employee [id=2, name=ronald, salary=75000.0, department=ADMIN]
+Employee [id=4, name=draco, salary=80000.0, department=IT]
+Employee [id=1, name=harry, salary=85000.0, department=IT]
+***After Sorting: salary ASC***
+Employee [id=2, name=ronald, salary=75000.0, department=ADMIN]
+Employee [id=4, name=draco, salary=80000.0, department=IT]
+Employee [id=1, name=harry, salary=85000.0, department=IT]
+Employee [id=3, name=hermione, salary=95000.0, department=SALES]
+
+Program: Sorting using Comparable
+
+public class Employee implements Comparable<Employee>{
+
+//e1.compareTo(e2)
+	@Override
+	public int compareTo(Employee e2) {
+		if(this.id < e2.id)
+			return -1;
+		if(this.id > e2.id)
+			return 1; //swap
+		if(this.id == e2.id)
+			return 0; 
+		
+		return 0;
+	} 
+
+
+Collections.sort(list);
+
+Comparision between List Classes
+=============================
+-> Implememtation of all List classes is similar. 
+-> Vector is the older implementation of ArrayList. 
+-> Vector is thread safe. 
+-> ArrayList is the fastest implementation of List classes 
+-> LinkedList must be used when we want to maintain Insertion order. It is slow for sorting and comparision operations. 
+
+-> ArraysList takes null value in the list. however if null is compared to any other object(say during sorting), it will throw NullPointerException. 
+
+-> ArrayList allows duplicates. 
+
+
+Map Interface 
+=============
+HashMap
+-------
+
+public class App {
+	public static void main(String[] args) {
+		  Map<String,String> map =new HashMap<>(); 
+		  map.put("harry", "potter123"); 
+		  map.put("ronald", "ronald123");
+		  map.put("hermione", "hermione123");
+		  
+		  System.out.println(map);
+		  /* Displaying all keys of the map */
+		  for(String key : map.keySet()) {  
+			  System.out.print(key + " ");
+		  }
+		  
+		  /* Display all values of the map  */
+		  System.out.println("");
+		  for(String value : map.values()) {
+			  System.out.print(value + " ");
+		  }
+		  System.out.println("");
+		  /* Given the key - fetch the value */
+		  String password  = map.get("hermione");
+		  System.out.println(password);
+		  
+		  /* Replace the value - based on the key */
+		  map.replace("harry", "potter@123");
+		  map.replace("ronald", "ronald1234", "ronald@123"); 
+		  
+		  System.out.println(map);
+	}
+}
+
+Case Study: Login System
+-------------------------
+Display the following Menu to the User. 
+
+1. Record Credentials 
+2. Login
+3. Update Password
+4. Forgot Password 
+0. Exit
+
+case 1. 
+Ask for username/password and save it in the map. 
+
+case 2. 
+Check the entered username/password entry in the map
+
+case 3. 
+Ask for username and old password. check and let the user update old with new password
+
+case 4. 
+Let the user enter the new password. 
+
+Exit the output only if the user enters 0. 
+
+Cover all validations
+
+class User{
+ String username;
+ String password;
+ String name; 
+ 
+}
+
+<username, new User("harry","potter","harry potter")>
+
+Solution: 
+--------
+
+import java.util.List;
+import java.util.Map;
+import com.main.model.User;
+import com.main.service.UserService;
+
+public class App {
+	public static void main(String[] args) {
+		 UserService userService = new UserService();
+		 List<User> list = userService.getUsers();
+		 Map<String,User> map =  userService.convertToMap(list); 
+		 while(true) {
+			 int input = userService.displayMenuAndReadInput();
+			 if(input==0) {
+				 System.out.println("Exiting.. Bye!!");
+				 break;
+			 }
+			 map = userService.processInput(input,map); 
+		 }
+		  
+	}
+}
+
+package com.main.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+import com.main.model.User;
+
+public class UserService {
+	private Scanner sc;
+	
+	{
+		this.sc = new Scanner(System.in);
+	}
+	
+	public List<User> getUsers(){
+		List<User> list = new ArrayList<>();
+		
+		User u1 = new User("harry potter", "harry","potter123");
+		User u2 = new User("ronald weasley", "ronald","weasley123");
+		User u3 = new User("hermione granger", "hermione","granger123");
+		
+		list.add(u1); 
+		list.add(u2);
+		list.add(u3);
+		
+		return list;
+	}
+
+	public Map<String, User> convertToMap(List<User> list) {
+		Map<String, User> map = new HashMap<>();
+		for( User user:list ) {
+			 map.put(user.getUsername(), user); 
+		 }
+		return map;
+	}
+
+	public int displayMenuAndReadInput() {
+		 
+		 System.out.println("****Login System****");
+		 System.out.println("Press 1. Record Credentials");
+		 System.out.println("Press 2. Login");
+		 System.out.println("Press 3. Update Password");
+		 System.out.println("Press 4. Forgot Password");
+		 System.out.println("Press 0. Exit");
+		 int input = sc.nextInt();
+		return input;
+	}
+
+	public Map<String,User> processInput(int input,Map<String,User> map) {
+		switch(input) {
+		 case 1:
+			 System.out.println("----Registration----");
+			 System.out.println("Enter Name");
+			 String name = sc.next();
+			 System.out.println("Enter Username");
+			 String username = sc.next();
+			 System.out.println("Enter Password");
+			 String password = sc.next();
+			 User u = new User(name,username,password); 
+			 map.put(username, u);
+			 System.out.println("Registration Success!!!");
+			 break; 
+		 case 2: 
+			 System.out.println("----Login----");
+			 System.out.println("Enter Username");
+			 username = sc.next();
+			 boolean isPresent= checkUsername(username, map);
+			 if(isPresent == false) { //if not present, exit
+				 System.out.println("Username Invalid, Try Again");
+				 break; 
+			 }
+				 
+			 System.out.println("Enter Password");
+			 password = sc.next();
+			 
+			 User user = map.get(username);
+			 String pass = user.getPassword();
+			 if(password.equals(pass)) { //checking if password is valid? 
+				 System.out.println("Welcome " + user.getName());
+				 System.out.println("Login Success!!");
+			 }
+			 else {
+				 System.out.println("Password Invalid, Login Denied");
+			 }
+			 break;
+		 case 3:
+			 System.out.println("----Update Password----");
+			 System.out.println("Enter Username");
+			 username = sc.next();
+			 isPresent= checkUsername(username, map);
+			 
+			 if(isPresent == false) { //if not present, exit
+				 System.out.println("Username Invalid, Try Again");
+				 break; 
+			 }
+			 System.out.println("Enter Current Password");
+			 String currentPassword = sc.next();
+			 boolean isValid = isPasswordValid(username,currentPassword,map);
+			 if(isValid == false) {
+				 System.out.println("Current Password Invalid");
+				 break; 
+			 }
+			 
+			 System.out.println("Enter new Password");
+			 String newPassword = sc.next();
+			 User currentUser = map.get(username); 
+			 currentUser.setPassword(newPassword);
+			 map.replace(username, currentUser); 
+			 System.out.println("Password Updated Successfully!!!!");
+			 break;
+		 case 4: 
+			 System.out.println("----Forgot Password----");
+			 System.out.println("Enter Username");
+			 username = sc.next();
+			 isPresent= checkUsername(username, map);
+			 
+			 if(isPresent == false) { //if not present, exit
+				 System.out.println("Username Invalid, Try Again");
+				 break; 
+			 }
+			 System.out.println("Enter new Password");
+			 newPassword = sc.next();
+			 User newUser = map.get(username);
+			 newUser.setPassword(newPassword);
+			 map.replace(username, newUser);
+			 System.out.println("Password ReSet Success!!!");
+			 break;
+		 default: 
+			 System.out.println("invalid option, try again");
+			 break;
+		 }
+		
+		return map; 
+	}
+	
+	private boolean isPasswordValid(String username, String currentPassword, Map<String, User> map) {
+		User user = map.get(username);
+		String pass = user.getPassword();
+		if(currentPassword.equals(pass)) 
+			return true; 
+		 
+		return false;
+	}
+
+	private boolean checkUsername(String username, Map<String,User> map){
+		 boolean isPresent=false; 
+		 for(String key : map.keySet()) { //checking weather username is present in map?
+			 if(username.equals(key)) {
+				 isPresent = true; 
+				 break;
+			 }
+		 }
+		return isPresent;
+	}
+}
+
+
+User.java
+---------
+public class User {
+	private String name; 
+	private String username; 
+	private String password;
+	
+
+//contructors, getters , setters, toString() 
+
+Comparision between Map classes
+-------------------------------
+-> HashMap is the fastest implementation of all Map classes
+-> Hashtable is thread safe. 
+-> LinkedHashMap used linked DS, could be used if insertion order is maintained. 
+
+-> Map classes does not take duplicate keys. However duplicate values are allowed. 
+
+-> A key can be assigned a null value <K,V> = <null,"potter123">. however, while trying fetch the value based on key, this will result in NullPointerException. 
+
+
+Set Classes
+-----------
+TreeSet
+=======
+-> TreeSet is a sorted collection. It does sorting by default. 
+
+import java.util.Set;
+import java.util.TreeSet;
+
+public class App {
+	public static void main(String[] args) {
+		 Set<Integer> set = new TreeSet<>();
+		 set.add(4);
+		 set.add(2);
+		 set.add(1);
+		 set.add(3); 
+		 set.add(3);
+		 
+		 System.out.println(set);//[1, 2, 3, 4]
+	}
+}
+
+/*
+ * TreeSet takes null values, but during runtime will throw NullPointerException 
+ * TreeSet Ignores duplicates
+ */
+ 
+equals and hashcode method : Object Equality Check
+==========================
+import com.main.model.User;
+
+public class App {  
+	public static void main(String[] args) {
+		User u1 = new User("harry potter", "harry","potter123"); //100X
+		User u2 = new User("harry potter", "harry","potter123"); //200X
+		
+		A a=new A(); 
+		boolean isEqual = a.checkEquality(u1,u2);
+		System.out.println(isEqual);
+		System.out.println(u1);
+		System.out.println(u2);
+		
+		 
+	}
+}
+class A{
+
+	public boolean checkEquality(User u1, User u2) {
+		if(u1.equals(u2))
+			return true;
+		return false;
+	}
+	 
+}
+ 
+
+public class User extends Object{
+	private String name; 
+	private String username; 
+	private String password;
+	
+	public User(String name, String username, String password) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+ 
+	 
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

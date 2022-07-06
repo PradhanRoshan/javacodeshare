@@ -1,0 +1,1028 @@
+Java Refresher Day 1/2
+
+Working with Methods 
+--------------------
+App.java
+========
+package com.main;
+
+import com.p1.A; //ctrl + shft + o
+public class App {
+	public static void main(String[] args) {
+		/*
+		 * App will call the methods of A
+		 */
+		A a= new A(); 
+		a.display();
+		
+		/*
+		 * Given 2 ints add them and display the result
+		 */
+		a.sum(10,5);
+		/*
+		 * Given an int value compute square and return the result
+		 */
+		int result = a.computeSquare(5);
+		System.out.println("Square is " + result );
+		
+		/*
+		 * You will be given 2 int nos. save them. 
+		 * create compute method, multiply the nos. given
+		 * and return the result. 
+		 */
+		a.save(5,10);
+		int ans = a.computeMul();
+		System.out.println("Mul is " + ans);
+	}
+}
+
+
+A.java
+======
+package com.p1;
+
+public class A {
+	int x; //--5
+	int y; //instance variables   -10
+	
+	public void display() {
+		System.out.println("A");
+	}
+
+	public void sum(int x, int y) {
+		int ans = x+y;
+		System.out.println("Sum is " + ans);
+	}
+
+	public int computeSquare(int n) {
+		
+		return n*n;
+	}
+
+	public void save(int x, int y) {//x=5,y=10
+		 this.x=x; //instance = local - 5
+		 this.y=y; //y=10
+	}
+
+	public int computeMul() {
+		return this.x*this.y;
+	}
+}
+
+Working with Objects: Heap and Stack
+====================================
+App.java
+--------
+package com.main;
+
+import com.p1.A;
+import com.p1.Customer;
+
+public class App {
+	public static void main(String[] args) {
+		A a=new A(); //100X
+		/*
+		 * A a: references go on the stack
+		 * new A(): Objects go on the heap 
+		 */
+		A a1=new A(); //200X
+		
+		System.out.println(a.getX()); //0
+		System.out.println(a1.getX());//0
+		
+		a.setX(6);
+		
+		System.out.println(a.getX()); //6
+		System.out.println(a1.getX());//0
+		
+		a1.setX(10);
+		System.out.println(a.getX()); //6
+		System.out.println(a1.getX());//10
+		
+		System.out.println("**************");
+		Customer c1 = new Customer(); //300X
+		c1.setName("harry");
+		c1.setBalance(1000);
+		
+		Customer c2 = new Customer(); //400X
+		c2.setName("Ronald");
+		c2.setBalance(800);
+		
+		System.out.println(c1.getName());
+		System.out.println(c1.getBalance());
+		
+		System.out.println(c2.getName());
+		System.out.println(c2.getBalance());
+		
+	}
+}
+
+Customer.java
+-------------
+
+public class Customer { //C1(100X) C2(200X)
+	String name;
+	double balance;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+}
+
+A.java
+------
+package com.p1;
+
+public class A {
+	int x;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	} 	
+}
+
+
+Output
+------
+0
+0
+6
+0
+6
+10
+**************
+harry
+1000.0
+Ronald
+800.0
+
+
+Inheritance
+-----------
+
+public class App {
+	public static void main(String[] args) {
+		 C c=new C(); 
+		 c.m1();
+		 c.m2();
+		 c.m3();
+	
+	}
+}
+
+class A{
+	void m1() {
+		System.out.println("m1 in A");
+	}
+}
+
+class B extends A{ //B inherits A
+	//B gets m1() from A
+	
+	void m2() {
+		System.out.println("M2 in B");
+	}
+	
+	//B has 2 methods: m1()-A, m2()-B
+}
+
+
+class C extends B{
+	//C gets 2 methods: m1()-A, m2()-B
+	
+	void m3() {
+		System.out.println("m3 in C");
+	}
+}
+
+Overriding and Overloading of Methods 
+-------------------------------------
+
+Signature of the method
+=======================
+1. Name of the method
+2. Number of Argument(s) in the method
+3. DataType of Arguments 
+4. Sequence of Data Types 
+
+ex 1. 
+m1(int x,int y)
+m1(int y)
+
+Sig is different 
+
+Ex 2. 
+m1(int x,float y)
+m1(int y,float x)
+
+Same/Diff ? Sig is Same
+
+Ex 3. 
+m1(int x,int y,float z)
+m1(int y,float y,float z)
+
+ANS: Sig is Diff. 
+
+Overriding
+=========
+2 methods are said to be Overrided if, 
+
+Signature is Same AND they follow following 2 rules: 
+1. Return type is Same 
+2. Sub-Class method does not have waeker access privilege. 
+
+Access Specifiers of the method
+--------------------------------
+public  (strongest)
+protected 
+default 
+private (weakest)
+
+Ex 1. 
+----
+public void m1(int x)
+protected void m1(int y)
+
+ANS: CF
+
+NOTE: if the signature is same but the above 2 rules do not satisfy then it is a CF(compile fail-ERROR)
+
+
+Ex 2. 
+-----
+       void m1(int x,int y)
+public void m1(int y,int x)
+
+a. Overriding
+b. Overloading
+c. CF
+d. None of the above 
+
+ANS: a 
+
+Overloading: If the Signature of methods is different but the names are same, then it is overloading. 
+
+Ex. 3
+-----
+
+public int compute(int marks, double percent)
+public void compute(int marks,int percent)
+
+a. Overriding
+b. Overloading
+c. CF
+d. None of the above 
+
+ANS: b 
+
+Ex. 4
+------
+private String getName(String lname)
+protected String getName(String fname)
+
+a. Overriding
+b. Overloading
+c. CF
+d. None of the above 
+
+ANS: a
+
+
+Polymorphism
+============
+Multiple forms of an object 
+
+Rule: 
+If a method is called from a polymorphic object, we follow a 2 step procedure. 
+
+Step 1: 
+Go to Super-class and check if the method sig is present
+
+if(present)
+   evaluate step 2
+else 
+   CF 
+
+Step 2: 
+come to sub-class, check if the method is overrided in the sub-class.
+
+if(overrided)
+	call sub-class version
+else 
+	call super-class version 
+
+
+Example: 
+public class App {
+	public static void main(String[] args) {
+		A a=new A(); //pure object of A
+		a.m1(); //m1 in A
+		
+		B b=new B(); //pure object of B
+		b.m1(); //m1 in B
+		
+		A a1 = new B(); //super-ref = sub-object : Polymorphic : both
+		a1.m1(); //m1 in B
+		//a1.m2(); //CF: m2() is not defined in class A
+		a1.m3(); //m3 in A
+		
+		/*
+		 * sub = super : CF 
+		 * B b1 = new A();  
+		 */
+    }
+}
+  
+class A{ //super
+	void m1() {
+		System.out.println("m1 in A");
+	}
+	
+	void m3() {
+		System.out.println("m3 in A");
+	}
+}
+
+class B extends A{ //sub
+	void m1() {
+		System.out.println("m1 in B");
+	}
+	
+	void m2() {
+		System.out.println("m2 in B");
+	}
+}
+
+Output: 
+m1 in A
+m1 in B
+m1 in B
+m3 in A
+
+
+Keywords : final 
+================
+final class
+final method 
+final variable 
+
+final class
+-----------
+Rule: If a class is marked as final, it cannot be extended. 
+
+Ex. 
+final class A{
+	void m1() {
+		
+	}
+}
+
+class B extends A{ //A is final, cannot be extended 
+	//B gets m1() from A 
+}
+
+final method
+============
+If a method is marked as final, it cannot be overrided by the sub-class. 
+
+Example: 
+class A{
+	final void m1() {
+		System.out.println("m1 in A");
+	}
+	void m2() {
+		System.out.println("m2 in A");
+	}
+}
+
+class B extends A{  
+	 //B gets m1() and m2() from A 
+	void m1() { //CF:Cannot override the final method from A
+		System.out.println("m1 in B");
+	}
+	void m2() {
+		System.out.println("m2 in B");
+	}
+}
+
+final variable
+==============
+Rule 1: If a instance variable is marked as final, it has to be initialized by the programmer as JVM will not initialize it. 
+
+Rule 2: 
+We cannot assign a value to a final variable. 
+
+class A{
+	final int x = 5;
+	final int y; //CF programmer needs to initialize y as it is final. 
+	
+	public int getX() {
+		return x;
+	}  
+	
+	void m1() {
+		x=5; //CF The final field A.x cannot be assigned
+	}
+}
+/*
+	int x; // declaration 
+	int x=6; //initialization 
+	x=7; //assignment
+*/
+
+Anonymous block
+===============
+- Anonymous blocks are called whenever the object is created. 
+
+public class App {
+	public static void main(String[] args) {
+		 A a=new A();
+		 A a1=new A();
+		 
+		 System.out.println(a.getX());
+    }
+}
+   
+class A{
+	final int x;
+
+	public int getX() {
+		return x;
+	}
+	
+
+	{  //Anonymous block: called when the object is created. 
+		System.out.println("inside anonymous...");
+		x=5;
+	}
+}
+
+
+static keyword
+--------------
+- static variable
+- static method 
+
+static method
+-------------
+Rule 1: 
+if a method is marked as static, it cannot be overrided by the sub-class(similar to final). 
+
+Rule 2: 
+static method signature can be re-used by the sub-class, without overriding, if it marks its own method as static.
+
+Rule 3: 
+static method can be accessed in 3 possible ways 
+- using object 
+- using class name (static way)
+- directly
+
+Example 1.
+----------
+public class App {
+	public static void main(String[] args) {
+		  A a=new B(); 
+		  a.m1(); //m1 in A
+		  
+		  A.m1();//m1 in A
+		  B.m1();//m1 in B
+    }
+}
+
+class A{
+	static void m1() { 
+		System.out.println("m1 in A");
+	}
+}
+
+class B extends A{
+	static void m1() {  
+		System.out.println("m1 in B");
+	}
+}
+
+output: 
+------
+m1 in A
+m1 in A
+m1 in B
+
+Static Variable
+----------------
+static variables are saved in static memory of the class. 
+
+Example: 
+
+
+public class App {
+	public static void main(String[] args) {
+		A a1 = new A(); //100X
+		A a2 = new A(); //200X
+
+		a1.setX(10);
+		a2.setX(20);
+		
+		System.out.println(a1.getX()); //10
+		System.out.println(a2.getX()); //20
+		
+		a1.setY(20);
+		System.out.println(a2.getY()); //20
+		
+		A.y=30; 
+		
+		System.out.println(a2.getY()); //30
+		System.out.println(a1.getY()); //30
+	}
+}
+
+class A {
+	int x = 5; // non-static instance variable
+	static int y = 10; // static instance variable
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public static int getY() {
+		return y;
+	}
+
+	public static void setY(int y) {
+		A.y = y;
+	}
+
+}
+
+Static block
+============
+
+Non Static Variables cannot be accessed from a static context.
+(static method, static block). 
+
+public class A {
+	/*
+	 * static variable can be accessed from all blocks
+	 * Non Static Variables cannot be accessed from a static context
+	 */
+	static int x; 
+	int y; 
+	
+	{
+		System.out.println(x);
+		System.out.println(y);
+	}
+	
+	static {
+		System.out.println(x);
+		System.out.println(y); //CF
+	}
+	
+	static void m1() {
+		System.out.println(x);
+		System.out.println(y); //CF
+	}
+	
+	void m2() {
+		System.out.println(x);
+		System.out.println(y);
+	}
+}
+
+
+3 ways of accessing static variable in main
+===========================================
+import static com.main.Customer.rateOfInterest; 
+
+ public class App {
+	public static void main(String[] args) {
+		 Customer c1 = new Customer(); 
+		 Customer c2 = new Customer(); 
+		 
+		 c1.setBalance(10000);
+		 c2.setBalance(6000);
+		 
+		 c1.setRateOfInterest(3); //using Object
+		 Customer.rateOfInterest = 4;  //Static Way - using Class
+		 rateOfInterest = 5; //direct with import static 
+		 
+	}
+}
+ 
+public class Customer { // C1:100X C2:200X
+	double balance;
+	static double rateOfInterest;
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public static double getRateOfInterest() {
+		return rateOfInterest;
+	}
+
+	public static void setRateOfInterest(double rateOfInterest) {
+		Customer.rateOfInterest = rateOfInterest;
+	}
+
+}
+
+
+3 ways of calling static method in main
+=======================================
+App.java
+-------- 
+ /*
+		   * Call display() in 3 ways
+		   */
+		
+		//Using Object
+		A a = new A(); 
+		a.display(); //A
+		 
+		//using class name- static way 
+		A.display(); //A
+		
+		//directly using import static com.p1.A.display
+		display(); //A
+
+A.java
+------
+public class A {
+	static void display() {
+		System.out.println("A");
+	}
+}
+
+Anonymous & static block
+========================
+- anonymous block is called when an object is created. 
+- static block is called when the class is loaded in the memory. 
+
+NOTE: class is loaded just before the object is created. 
+
+App.java
+========
+package com.main;
+  public class App {
+	public static void main(String[] args) {
+		 A a=new A(); 
+		 A a1=new A();
+	}
+}
+
+A.java
+======
+package com.main;
+
+public class A {
+	{
+		System.out.println("Anonymous");
+	}
+	
+	static {
+		System.out.println("static");
+	}
+}
+
+output: 
+======
+static
+Anonymous
+Anonymous
+
+Keyword Abstract
+================
+- abstract method
+- abstract class 
+
+- abstract method do not have the body and end with a semi colon. They are used to define the methods
+
+- abstracts method can be written only inside abstract class.  
+
+- abstract class cannot be instantiated(create an object)
+
+
+Rule: 
+-----
+When a class extends an Abstract class, it must mandatorily override all the abstract methods OR mark itself as abstract. 
+
+Example: 
+
+Transfer.java
+-------------
+package com.bankop;
+
+abstract public class Transfer {
+	public abstract void validateA();
+	public abstract void validateB();
+	public abstract void debitA();
+	public abstract void creditB();
+	public abstract void updateLogs();
+}
+
+abstract class A extends Transfer{
+	//A must either override all the abstract method or mark itself as abstract
+	public void validateA() {
+		System.out.println("validate A todo..");
+	}
+}
+
+abstract class B extends A{
+	//B must either override all the abstract methods or mark itself as abstract
+	public void validateB(){
+		System.out.println("validate B todo..");
+	}
+	
+	public void debitA(){
+		System.out.println("debit A todo..");
+	}
+}
+
+
+class C extends B{
+	public void creditB(){
+		System.out.println("Credit B todo..");
+	}
+	
+	public void updateLogs() {
+		System.out.println("update logs todo.. ");
+	} 
+}
+
+App.java
+--------
+package com.bankop;
+
+public class App {
+	public static void main(String[] args) {
+		  C c=new C(); 
+		  c.validateA();
+		  c.validateB();
+		  c.debitA();
+		  c.creditB();
+		  c.updateLogs();
+
+	}
+}
+
+Interface
+=========
+
+Rule 1
+------
+An Interface, by default, is an abstract entity and hence cannot be instantiated. 
+
+public interface Inter { //public abstact interface Inter
+
+}
+
+Inter i = new Inter(); //CF
+
+Rule 2
+------
+A variable in interface, by default, is 
+public static and final. 
+
+public interface Inter {  
+	int x=7; //public static final int x; 
+}
+
+System.out.println(Inter.x);//7
+
+Rule 3
+------
+A method in interface, by default, is public and abstract. 
+
+public interface Inter {  
+	 
+	void m1();  //public abstract void m1();  
+}
+
+Rule 4
+------
+An Interface can extend other interface
+
+public interface Inter {  
+	void m1();  //public abstract void m1();  
+}
+
+interface Inter1 extends Inter{
+	//Inter1 gets m1() from Inter
+}
+
+Rule 5
+------
+A class does not extend an interface. It only implements it. 
+
+When a class implements an Interface, It has to compulsarily override all the methods of the interface. 
+
+public interface Inter {  
+	void m1();  //public abstract void m1();  
+}
+ 
+class Two implements Inter{
+	 //A must override m1() OR mark itself as abstract 
+	
+	public void m1(){
+		System.out.println("m1 in A");
+	}
+}
+
+
+super keyword
+-------------
+
+public class App {
+	public static void main(String[] args) {
+		B b=new B(); 
+		b.m2();
+	}
+}
+/*
+ * From sub-class method, we want to call super class method. 
+ * We use super keyword. 
+ */
+
+class A{
+	void m1() {
+		System.out.println("m1 of A");
+	}
+}
+
+class B extends A{
+	void m2() {
+		System.out.println("m2 in B");
+		super.m1();
+	}
+}
+
+Constructors
+============
+- Constructors are used to initialize instance variables. 
+- If a programmer does not create a constructor in its class, JVM creates a default(no arg) constructor. 
+
+Customer(){
+
+}
+
+- Constructors are called when the object is created. 
+
+Example
+-------
+public class App {
+	public static void main(String[] args) {
+		Customer c = new Customer(); //this calls the constructor of line 14
+		Customer c1 = new Customer("harry", 3000); //this calls const. of line 16
+	}
+}
+ 
+class Customer{
+	String name; 
+	double balance;
+	
+	public Customer() { } //line 14
+
+	public Customer(String name, double balance) { //line 16
+		this.name = name;
+		this.balance = balance;
+	} 
+}
+ 
+- A programmer can call a constructor from within another constructor using this() method. 
+
+Note: this() has to be the first statement inside the constructor. 
+
+example:
+--------
+public class App {
+	public static void main(String[] args) {
+		Customer c = new Customer(); 
+		
+	}
+}
+ 
+class Customer{
+	String name; 
+	double balance;
+	
+	public Customer() {
+		this("harry",4000);
+		System.out.println("default");
+	}  
+
+	public Customer(String name, double balance) { //line 16
+		System.out.println("arg");
+	} 
+}
+ 
+O/P:
+arg
+default
+
+Constructor Chaining
+--------------------
+-> JVM writes super() as first statement of every constructor except 
+a. those constructors that have this() method in them 
+b. when programmer has written super() by itself. 
+
+super()- calls the constructor of the super class. 
+
+example
+=======
+public class App {
+	public static void main(String[] args) {
+		 new B(); 
+		 
+	}
+}
+
+class A /* extends Object  */{
+	A(){
+		super(); //this calls Object() -- added by JVM
+		System.out.println("A");
+	}
+}
+
+class B extends A{
+	B(){
+		super(); //this calls A()  -- added by JVM
+		System.out.println("B");
+	}
+}
+
+Encapsulation
+=============
+It is a way of designing a class. 
+
+- all instance variables must be marked as private. 
+- provide getter for all instance variables
+- can also provide setters for these variables 
+- must offer default as well as argument constructor to initialize instance variables. 
+- must override toString() method. 
+- Can override equals and hashcode method.** 
+
+Example
+
+public class Customer extends Object{
+	private String name;
+	private double balance;
+	
+	public Customer() {
+	
+	}
+	
+	public Customer(String name, double balance) {
+		super();
+		this.name = name;
+		this.balance = balance;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [name=" + name + ", balance=" + balance + "]";
+	}
+}
+
+
+
+
+
+
+
