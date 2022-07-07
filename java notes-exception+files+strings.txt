@@ -1,22 +1,22 @@
 Java: OOPs
 ==========
-Project Structure
+- Project Structure
 	- Access specifiers of a class
 	- Access specifiers of the method 
-Class fundamentals
+- Class fundamentals
 	- variables
 	- methods
 	- working with Object 
-Inheritance
+- Inheritance
 	- Overriding & overloading 
 	- polymorphism
-Keywords
+- Keywords
 	- final
 	- static
 	- abstract
-Interfacing
-Constructor
-Encapsulation
+- Interfacing
+- Constructor
+- Encapsulation
 
 Java Part-II
 ============
