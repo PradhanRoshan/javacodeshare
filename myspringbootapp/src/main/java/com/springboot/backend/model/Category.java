@@ -13,8 +13,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; 
-	
-	@Column(length = 99, nullable = false)
+ 	@Column(length = 99, nullable = false)
 	private String name; 
 	
 	@Column(nullable = true)

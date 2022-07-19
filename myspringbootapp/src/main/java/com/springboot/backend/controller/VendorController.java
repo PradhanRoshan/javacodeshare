@@ -37,4 +37,8 @@ public class VendorController {
 		else
 			throw new RuntimeException("ID is invalid");
 	}
+	
+	public void deleteVendor(){
+		
+	}
 }
