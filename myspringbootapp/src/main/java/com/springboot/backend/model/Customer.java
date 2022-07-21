@@ -6,27 +6,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Product {
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; 
-	
+
 	@Column(nullable = false)
 	private String name; 
 	
 	@Column(nullable = false)
-	private Double price; 
+	private String city; 
 	
-	@OneToOne
-	private Category category;
-	
-	@OneToOne
-	private Vendor vendor;
-	
+	@Column(nullable = false)
+	private int age;
+	 
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Customer(Long id, String name, String city, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.age = age;
+	}
 
 	public Long getId() {
 		return id;
@@ -44,35 +52,27 @@ public class Product {
 		this.name = name;
 	}
 
-	public Double getPrice() {
-		return price;
+	public String getCity() {
+		return city;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public Category getCategory() {
-		return category;
+	public int getAge() {
+		return age;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Vendor getVendor() {
-		return vendor;
-	}
-
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", vendor="
-				+ vendor + "]";
-	}
+		return "Customer [id=" + id + ", name=" + name + ", city=" + city + ", age=" + age + "]";
+	} 
+	
 	
 	
 }
