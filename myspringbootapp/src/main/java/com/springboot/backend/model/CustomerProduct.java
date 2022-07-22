@@ -15,17 +15,17 @@ import com.springboot.backend.enums.CouponCode;
 
 @Entity
 @Table(name="customer_product")
-public class CustomerProduct {
+public class CustomerProduct { //cp
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; 
 	
 	@OneToOne
-	private Customer customer; 
+	private Customer customer; //Projection --select
 	
 	@OneToOne
-	private Product product; 
+	private Product product;  //condition - where
 	
 	private LocalDate dateOfPurchase; 
 	

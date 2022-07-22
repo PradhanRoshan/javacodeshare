@@ -14,6 +14,7 @@ import com.springboot.backend.repository.CustomerRepository;
 @RestController
 public class CustomerController {
 
+	// Controller: (Entity) : FindAll, POST, FindById, DeleteById, Update 
 	@Autowired
 	private CustomerRepository customerRepository; 
 	
