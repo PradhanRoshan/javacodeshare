@@ -3,6 +3,7 @@ package com.springboot.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class CustomerController {
 	// Controller: (Entity) : FindAll, POST, FindById, DeleteById, Update 
 	@Autowired
 	private CustomerRepository customerRepository; 
-	
+	 
 	@PostMapping("/customer")
 	public Customer postCustomer(@RequestBody Customer customer) {
 		return customerRepository.save(customer); 

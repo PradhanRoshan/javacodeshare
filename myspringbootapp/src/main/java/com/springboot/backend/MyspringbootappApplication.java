@@ -8,5 +8,5 @@ public class MyspringbootappApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyspringbootappApplication.class, args);
-	}
+	} 
 }
