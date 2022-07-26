@@ -20,6 +20,10 @@ public class UserController {
 	
 	@PostMapping("/user")
 	public UserInfo postUser(@RequestBody UserInfo user) {
+		UserInfo info = userRepository.getByUsername(user.getUsername());
+		if(info != null)
+			throw new RuntimeException("Username Invalid!!!");
+		
 		String password = user.getPassword();
 		password = passwordEncoder.encode(password);
 		user.setPassword(password);

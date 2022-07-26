@@ -1,5 +1,6 @@
 package com.springboot.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.backend.dto.ProductDto;
 import com.springboot.backend.model.Category;
 import com.springboot.backend.model.Product;
 import com.springboot.backend.model.Vendor;
@@ -57,9 +59,23 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products")
-	public List<Product> getAllProducts() {
+	public List<ProductDto> getAllProducts() {
 		List<Product> list =  productRepository.findAll();
-		return list;
+		List<ProductDto> listDto = new ArrayList<>(); 
+		list.stream().forEach(p->{
+			ProductDto dto = new ProductDto(); 
+			dto.setId(p.getId());
+			dto.setName(p.getName());
+			dto.setPrice(p.getPrice());
+			dto.setCid(p.getCategory().getId());
+			dto.setCname(p.getCategory().getName());
+			dto.setCpref(p.getCategory().getPreference());
+			dto.setVid(p.getVendor().getId());
+			dto.setVcity(p.getVendor().getCity());
+			dto.setVname(p.getVendor().getName());
+			listDto.add(dto);
+		});
+		return listDto;
 	}
 	
 	@GetMapping("/products/category/{cid}")
