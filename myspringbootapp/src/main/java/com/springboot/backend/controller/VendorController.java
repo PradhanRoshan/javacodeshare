@@ -36,7 +36,7 @@ public class VendorController {
 		vendorRepository.save(vendor);
 	}
 	
-	@GetMapping("/vendor")
+	@GetMapping("/vendor") 
 	public List<VendorDto> getAllVendors(
 			@RequestParam(name = "page",required = false, defaultValue = "0") Integer page, 
 			@RequestParam(name = "size",required = false, defaultValue = "100000") Integer size ) {
