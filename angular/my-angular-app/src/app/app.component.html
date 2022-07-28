@@ -1,49 +1,20 @@
+<!--
+
 <h1>Hello Angular</h1>
-<div>
-  <h4>x={{x}} <br />
-    y={{y}} <br />
-    Result is : {{result}}
-  </h4>
-  <button (click)="display()">Click Me</button>
-  <hr>
-  <button (click)="add()">ADD</button>
-  <button (click)="sub()">SUB</button>
-  <button (click)="mul()">MUL</button>
-  <button (click)="div()">DIV</button>
-</div>
+<app-calc></app-calc>
 <hr>
-<div>
-  <ul>
-    <li *ngFor="let n of arr"> {{n}}</li>
-  </ul>
-  <br /><br />
-  <button (click)="even()">Show Even</button>
-  <button (click)="odd()">Show Odd</button>
-  <button (click)="reset()">Reset</button>
-
-</div>
+<app-array></app-array>
 <hr>
-<button (click)="toggleAddress()">{{lbladdress}}</button> <br />
-<div class="address" *ngIf="showAddress">
-  <p>Address</p>
-  <span>101 Kingston Avenue, Thames, Isleworth</span>
-</div>
-
+<app-address></app-address>
 <hr>
-<div class="employee_box" *ngFor="let e of employees">
-  <h2> {{e.name}} </h2>
-  Employee ID: {{e.id}} <br />
-  City: {{e.city}} <br />
-  Department: {{e.department}} <br />
-  salary: ${{e.salary}} <br />
-</div>
-<hr>
-<button (click)="sortSalary(1)">
-  Sort by Salary - ASC </button>
-<button (click)="sortSalary(0)">
-  Sort by Salary - DESC </button>
+<app-employee-list></app-employee-list>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<app-employee-add></app-employee-add>
+
+
+<app-employee-list [data]="employees" ></app-employee-list>
+-->
+<app-employee-add-reactive></app-employee-add-reactive>
