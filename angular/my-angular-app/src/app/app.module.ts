@@ -15,6 +15,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProductComponent } from './components/product/product.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProductComponent } from './components/product/product.component';
     PostComponent,
     DashboardComponent,
     CommentsComponent,
-    ProductComponent
+    ProductComponent,
+    CategoryComponent
 
   ],
   imports: [

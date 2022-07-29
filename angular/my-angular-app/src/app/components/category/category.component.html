@@ -1,0 +1,12 @@
+<h2>Add Category</h2>
+
+<span *ngIf="!(message == '') ">{{message}}</span> <br/>
+<form (submit)="onFormSubmit()" [formGroup]="categoryForm">
+  <label>Enter Category Name: </label>
+  <input type="text" name="name" formControlName="name">
+  <br /><br />
+  <label>Enter Preference: </label>
+  <input type="text" name="preference" formControlName="preference">
+  <br /><br />
+  <input type="submit" value="Add Category" [disabled]="!categoryForm.valid">
+  </form>
