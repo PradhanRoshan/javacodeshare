@@ -1,0 +1,11 @@
+<h1>Posts (from external API)</h1>
+
+<div *ngFor="let p of posts">
+  Title: <strong>{{p.title}}</strong> <br />
+  UserID: {{p.userId}} <br />
+  ID: {{p.id}} <br />
+  {{p.body}} <br />
+  <a routerLink="/comments/{{p.id}}">view comments</a>
+
+  <hr>
+</div>

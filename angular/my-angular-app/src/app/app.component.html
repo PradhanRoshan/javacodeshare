@@ -16,5 +16,15 @@
 
 
 <app-employee-list [data]="employees" ></app-employee-list>
--->
+
 <app-employee-add-reactive></app-employee-add-reactive>
+-->
+<div class="navbar">
+  <a routerLink="/dashboard">Dashboard</a> &nbsp;&nbsp;&nbsp;
+  <a routerLink="/posts">Posts</a> &nbsp;&nbsp;&nbsp;
+  <a routerLink="/products">Products</a> &nbsp;&nbsp;&nbsp;
+  <hr>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>

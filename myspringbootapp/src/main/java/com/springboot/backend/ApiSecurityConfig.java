@@ -22,10 +22,10 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/customers").authenticated()
-			.antMatchers("/products").authenticated()
-			.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN")
 			.anyRequest().permitAll()
+			//.antMatchers(HttpMethod.GET, "/customers").authenticated()
+			//.antMatchers("/products").authenticated()
+			//.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN")
 			.and().httpBasic()
 			.and().csrf().disable();
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.CategoryRepository;
 import com.springboot.backend.repository.ProductRepository;
 import com.springboot.backend.repository.VendorRepository;
-
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class ProductController {
 
