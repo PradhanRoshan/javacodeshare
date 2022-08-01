@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Employee } from '../model/employee.model';
+import { EmployeeService } from '../service/employee.service';
 
 @Component({
   selector: 'app-employee-add-rxjs',
@@ -9,9 +11,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class EmployeeAddComponentRxjs implements OnInit {
 
   employeeForm :FormGroup;
-  constructor() { }
+  employee: Employee;
+  msg:string;
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+    this.msg='';
     this.employeeForm = new FormGroup({
       name: new FormControl('', [Validators.required,
                                  Validators.pattern(/^[a-zA-Z ]+$/)]),
@@ -27,7 +32,22 @@ export class EmployeeAddComponentRxjs implements OnInit {
   }
 
   onFormSubmit(){
-    console.log(this.employeeForm.value);
+    this.employee = this.employeeForm.value;
+     this.employeeService.postEmployee(this.employee).subscribe( {
+        next: (data)=> {
+          this.employee = data;
+          this.msg='Employee added in the system';
+          //Read the value from the Subject
+          let employeeArry = this.employeeService.employee$.getValue();
+          //update the value: add employee to Employee[]
+          employeeArry.push(this.employee);
+          //update the subject value
+          this.employeeService.employee$.next(employeeArry);
+        },
+        error: (e)=>{
+          this.msg='Operation Failed';
+        }
+     });
   }
 
 }
