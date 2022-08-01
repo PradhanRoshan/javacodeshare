@@ -43,6 +43,9 @@ export class EmployeeAddComponentRxjs implements OnInit {
           employeeArry.push(this.employee);
           //update the subject value
           this.employeeService.employee$.next(employeeArry);
+
+          //update the value of $stat
+          this.employeeService.stat$.next(true);
         },
         error: (e)=>{
           this.msg='Operation Failed';

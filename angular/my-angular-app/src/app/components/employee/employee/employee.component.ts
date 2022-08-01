@@ -18,7 +18,8 @@ export class EmployeeComponent implements OnInit {
       this.size = 5;
       this.employeeService.page$.subscribe(value=>{
           this.page = value;
-          this.employeeService.getAllEmployees(this.page,this.size).subscribe({
+          this.employeeService.getAllEmployees(this.page,this.size)
+          .subscribe({
             next: (data)=>{
                 this.employees = data;
                 this.employeeService.employee$.next(this.employees);

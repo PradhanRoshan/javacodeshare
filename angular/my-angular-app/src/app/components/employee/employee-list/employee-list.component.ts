@@ -29,7 +29,6 @@ export class EmployeeListComponentRxjs implements OnInit {
         //attach the updated value to the subject
          this.employeeService.page$.next(this.page);
        }
-
   }
 
   next(){

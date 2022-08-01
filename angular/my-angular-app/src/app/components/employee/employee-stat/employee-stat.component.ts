@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Stat } from '../model/employee.model';
+import { EmployeeService } from '../service/employee.service';
 
 @Component({
   selector: 'app-employee-stat',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeStatComponent implements OnInit {
 
-  constructor() { }
+  stat: Stat[];
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+      this.employeeService.stat$.subscribe(data=>{
+          this.employeeService.getEmployeeStats().subscribe(data=>{
+            this.stat = data;
+          });
+      });
   }
 
 }

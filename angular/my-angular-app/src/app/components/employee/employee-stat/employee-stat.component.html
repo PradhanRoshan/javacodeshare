@@ -1,1 +1,11 @@
-<p>employee-stat works!</p>
+<div class="estat">
+  <div *ngFor="let s of stat" class="sentry">
+  <span class="dept">
+      {{s.department}}
+  </span>
+  <br />
+  <span class="count">
+    {{s.count}}
+</span>
+  </div>
+</div>
