@@ -1,1 +1,17 @@
-<p>employee-list works!</p>
+<h2>Employee List</h2>
+
+<div *ngFor="let e of employees">
+  Name: <strong>{{e.name}}</strong>
+  &nbsp;&nbsp;
+  City: {{e.city}}
+  &nbsp;&nbsp;
+  Department: {{e.department}}
+  &nbsp;&nbsp;
+  Salary: {{e.salary}}
+  <hr>
+</div>
+<br /><br />
+<div>
+<a href="Javascript:void" (click)="prev()">Prev </a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="Javascript:void" (click)="next()">Next </a>
+</div>

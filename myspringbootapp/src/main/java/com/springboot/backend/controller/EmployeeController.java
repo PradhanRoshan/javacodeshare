@@ -31,6 +31,8 @@ public class EmployeeController {
 	public List<Employee> getAllEmployee(
 			@RequestParam("page") Integer page,
 			@RequestParam("size") Integer size){
+		if(page < 0)
+			page=0;
 		
 		Pageable pageable=PageRequest.of(page, size);
 		
