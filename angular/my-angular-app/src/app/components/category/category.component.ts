@@ -12,18 +12,17 @@ export class CategoryComponent implements OnInit {
 
   categoryForm :FormGroup;
   message: string;
-
   constructor(private categoryService: CategoryService) { }
-
 
   ngOnInit(): void {
     this.message ='';
     this.categoryForm = new FormGroup({
-      name: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z ]+$/)]),
-      preference: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+$/)])
+      name: new FormControl('', [Validators.required,
+          Validators.pattern(/^[a-zA-Z ]+$/)]),
+      preference: new FormControl('', [Validators.required,
+        Validators.pattern(/^[0-9]+$/)])
     });
   }
-
   onFormSubmit(){
       let category: Category={
         name: this.categoryForm.value.name,
@@ -37,7 +36,6 @@ export class CategoryComponent implements OnInit {
           this.message ='Could not perform operation..'
         }
       }
-
       );
   }
 

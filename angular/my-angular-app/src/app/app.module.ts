@@ -16,6 +16,16 @@ import { CommentsComponent } from './components/comments/comments.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProductComponent } from './components/product/product.component';
 import { CategoryComponent } from './components/category/category.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListViewAllModule } from '@syncfusion/ej2-angular-lists';
+import { TextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { SidebarModule, MenuAllModule, TreeViewAllModule, ToolbarAllModule} from '@syncfusion/ej2-angular-navigations';
+import { RadioButtonModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { EmployeeComponent } from './components/employee/employee/employee.component';
+import { EmployeeStatComponent } from './components/employee/employee-stat/employee-stat.component';
+import { EmployeeListComponentRxjs } from './components/employee/employee-list/employee-list.component';
+import { EmployeeAddComponentRxjs } from './components/employee/employee-add/employee-add.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +40,28 @@ import { CategoryComponent } from './components/category/category.component';
     DashboardComponent,
     CommentsComponent,
     ProductComponent,
-    CategoryComponent
-
+    CategoryComponent,
+    EmployeeComponent,
+    EmployeeStatComponent,
+    EmployeeListComponentRxjs,
+    EmployeeAddComponentRxjs,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    SidebarModule,
+    ToolbarAllModule,
+    TextBoxAllModule,
+    RadioButtonModule,
+    MenuAllModule,
+    ButtonModule,
+    TreeViewAllModule,
+    ListViewAllModule,
+    DropDownListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

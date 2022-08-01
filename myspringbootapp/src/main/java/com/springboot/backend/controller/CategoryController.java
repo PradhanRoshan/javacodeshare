@@ -31,7 +31,7 @@ public class CategoryController {
 	@PostMapping("/category")
 	public void postCategory(@RequestBody Category category) {
 		//we use JpaRepository Interface 
-		categoryRepository.save(category);
+		 categoryRepository.save(category);
 	}
 	
 	@GetMapping("/category")
