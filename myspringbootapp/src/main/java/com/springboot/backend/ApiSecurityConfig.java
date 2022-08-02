@@ -22,6 +22,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/login").authenticated()
 			.anyRequest().permitAll()
 			//.antMatchers(HttpMethod.GET, "/customers").authenticated()
 			//.antMatchers("/products").authenticated()

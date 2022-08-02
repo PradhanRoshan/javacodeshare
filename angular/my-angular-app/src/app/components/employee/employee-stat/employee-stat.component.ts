@@ -14,7 +14,8 @@ export class EmployeeStatComponent implements OnInit {
 
   ngOnInit(): void {
       this.employeeService.stat$.subscribe(data=>{
-          this.employeeService.getEmployeeStats().subscribe(data=>{
+          this.employeeService.getEmployeeStats()
+          .subscribe(data=>{
             this.stat = data;
           });
       });
