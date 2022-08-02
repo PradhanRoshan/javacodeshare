@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
+
   username: string;
   message$ = new BehaviorSubject<string>('');
   constructor() {
@@ -19,5 +20,9 @@ export class AuthService {
     if(this.username == null)
         return false;
     return true;
+  }
+
+  login(username: string, password: string) {
+     //call login API from here..
   }
 }

@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
 
   message: string;
   loginForm: FormGroup;
+  username: string;
+  password: string;
 
   constructor(private authService: AuthService) { }
 
@@ -26,7 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit(){
-      console.log(this.loginForm.value);
+      this.username = this.loginForm.value.username;
+      this.password = this.loginForm.value.password;
+
+      this.authService.login(this.username,this.password);
   }
 
 }
