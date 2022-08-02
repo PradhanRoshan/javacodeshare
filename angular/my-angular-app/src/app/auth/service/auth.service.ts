@@ -10,6 +10,8 @@ export class AuthService {
 
 
   username: string;
+  username$ = new BehaviorSubject<string>('');
+
   message$ = new BehaviorSubject<string>('');
   loginApi: string;
 

@@ -35,8 +35,8 @@ public class EmployeeController {
 	
 	@GetMapping("/employee")
 	public List<Employee> getAllEmployee(
-			@RequestParam("page") Integer page,
-			@RequestParam("size") Integer size){
+			@RequestParam(name="page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name="size",required=false,defaultValue = "100") Integer size){
 		if(page < 0)
 			page=0;
 		

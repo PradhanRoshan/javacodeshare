@@ -22,13 +22,24 @@
 
 
 <div class="navbar">
+  <span>
   <a routerLink="/dashboard">Dashboard</a> &nbsp;&nbsp;&nbsp;
   <a routerLink="/posts">Posts</a> &nbsp;&nbsp;&nbsp;
   <a routerLink="/products">Products</a> &nbsp;&nbsp;&nbsp;
   <a routerLink="/category">Category</a> &nbsp;&nbsp;&nbsp;
   <a routerLink="/employee">Employee</a> &nbsp;&nbsp;&nbsp;
+
+  </span>
+  <span *ngIf="username != '' ">
+      Welcome {{username}}  &nbsp;&nbsp;&nbsp;
+      <a routerLink="/logout">Logout</a>
+  </span>
+  <span *ngIf="username == '' " >
+    <a routerLink="/login">Login</a>
+  </span>
   <hr>
 </div>
+
 <div>
   <router-outlet></router-outlet>
 </div>
