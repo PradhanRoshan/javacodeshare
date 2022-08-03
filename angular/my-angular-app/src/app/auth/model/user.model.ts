@@ -5,3 +5,13 @@ export class User{
   name: string;
   password?: string;
 }
+
+
+
+export class UserDto{
+  name: string;
+  encodedCredentials: string;
+  role: string;
+  securityQuestion: string;
+  securityAnswer: string;
+}
