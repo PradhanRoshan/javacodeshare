@@ -31,7 +31,7 @@ export class SignUpComponent implements OnInit {
         securityAnswer: this.signUpForm.value.securityAnswer,
         securityQuestion: this.signUpForm.value.securityQuestion,
         encodedCredentials: btoa(this.signUpForm.value.username
-          + '+=+' + this.signUpForm.value.password)
+          + '@%' + this.signUpForm.value.password)
       }
       //aGFycnkrPStwb3R0ZXI=
       console.log(this.userDto);

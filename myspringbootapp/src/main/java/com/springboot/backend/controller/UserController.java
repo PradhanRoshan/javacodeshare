@@ -1,6 +1,8 @@
 package com.springboot.backend.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.backend.dto.UserDto;
 import com.springboot.backend.dto.UserInfoDto;
 import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.repository.UserRepository;
@@ -25,15 +28,22 @@ public class UserController {
 	private PasswordEncoder passwordEncoder; 
 	
 	@PostMapping("/user")
-	public UserInfo postUser(@RequestBody UserInfo user) {
-		UserInfo info = userRepository.getByUsername(user.getUsername());
-		if(info != null)
-			throw new RuntimeException("Username Invalid!!!");
-		
-		String password = user.getPassword();
-		password = passwordEncoder.encode(password);
-		user.setPassword(password);
-		return userRepository.save(user);
+	public void postUser(@RequestBody UserDto userDto) {
+		 String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials())); 
+		 String username = str.split("@%")[0];
+		 String password = str.split("@%")[1];
+		 
+		 UserInfo info = new UserInfo(); 
+		 info.setName(userDto.getName());
+		 info.setPassword(passwordEncoder.encode(password));
+		 info.setUsername(username);
+		 info.setPasswordLastReset(LocalDate.now());
+		 info.setSecurityQuestion(userDto.getSecurityQuestion());
+		 info.setSecurityAnswer(userDto.getSecurityAnswer());
+		 info.setRole(userDto.getRole());
+
+		 userRepository.save(info); 
+		 
 	}
 	
 	@GetMapping("/login") //username/password

@@ -1,5 +1,7 @@
 package com.springboot.backend.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,15 @@ public class UserInfo {
 	
 	@Column(nullable = false)
 	private String role;
-
+    
+	@Column(nullable = false)
+	private String securityQuestion; 
+	
+	@Column(nullable = false)
+	private String securityAnswer; 
+	
+	private LocalDate passwordLastReset; 
+	
 	public UserInfo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -79,6 +89,33 @@ public class UserInfo {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+    
+	
+	
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+
+	
+	public LocalDate getPasswordLastReset() {
+		return passwordLastReset;
+	}
+
+	public void setPasswordLastReset(LocalDate passwordLastReset) {
+		this.passwordLastReset = passwordLastReset;
 	}
 
 	@Override
