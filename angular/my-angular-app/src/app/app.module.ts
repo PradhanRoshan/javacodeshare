@@ -29,6 +29,7 @@ import { EmployeeAddComponentRxjs } from './components/employee/employee-add/emp
 import { LoginComponent } from './auth/component/login/login.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { ProfileComponent } from './auth/component/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
     LoginComponent,
     LogoutComponent,
     SignUpComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

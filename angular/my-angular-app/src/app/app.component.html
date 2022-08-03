@@ -33,6 +33,8 @@
   </span>
   <span *ngIf="username != '' ">
       Welcome {{username}}  &nbsp;&nbsp;&nbsp;
+      <a routerLink="/profile">Profile</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a routerLink="/logout">Logout</a>
   </span>
   <span *ngIf="username == '' " >

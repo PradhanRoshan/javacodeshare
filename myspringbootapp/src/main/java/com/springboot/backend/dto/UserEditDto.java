@@ -1,50 +1,47 @@
 package com.springboot.backend.dto;
 
-public class UserDto {
-	private String name;
-	private String role;
+public class UserEditDto {
+	private Long id; 
+	private String name; 
 	private String securityAnswer;
 	private String securityQuestion;
-	private String encodedCredentials;
-    
+	
+	
+	public UserEditDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public UserEditDto(Long id, String name, String securityAnswer, String securityQuestion) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.securityAnswer = securityAnswer;
+		this.securityQuestion = securityQuestion;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public String getSecurityAnswer() {
 		return securityAnswer;
 	}
-
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
-
 	public String getSecurityQuestion() {
 		return securityQuestion;
 	}
-
 	public void setSecurityQuestion(String securityQuestion) {
 		this.securityQuestion = securityQuestion;
 	}
-
-	public String getEncodedCredentials() {
-		return encodedCredentials;
-	}
-
-	public void setEncodedCredentials(String encodedCredentials) {
-		this.encodedCredentials = encodedCredentials;
-	}
-
+	
+	
 }

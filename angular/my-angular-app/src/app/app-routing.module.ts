@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/component/login/login.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
+import { ProfileComponent } from './auth/component/profile/profile.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { CategoryComponent } from './components/category/category.component';
@@ -23,6 +24,8 @@ const routes: Routes = [
                     canActivate:[AuthguardService]},
   {path:'logout' ,component: LogoutComponent},
   {path:'sign-up' ,component: SignUpComponent},
+  {path:'profile' ,component: ProfileComponent,
+                  canActivate:[AuthguardService] },
 ];
 
 @NgModule({
