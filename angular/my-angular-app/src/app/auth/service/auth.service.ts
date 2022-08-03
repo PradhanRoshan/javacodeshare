@@ -1,23 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../model/user.model';
+import { User, UserDto } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-
   username: string;
   username$ = new BehaviorSubject<string>('');
 
   message$ = new BehaviorSubject<string>('');
   loginApi: string;
+  signUpApi: string;
 
   constructor(private http: HttpClient) {
     this.username='';
     this.loginApi = 'http://localhost:8282/login';
+    this.signUpApi='http://localhost:8282/user';
   }
 
   isLoggedIn(): boolean{
@@ -40,4 +41,10 @@ export class AuthService {
 
      return this.http.get<User>(this.loginApi, httpOptions);
   }
+
+  signUp(userDto: UserDto):Observable<any> {
+    return this.http.post(this.signUpApi, userDto);
+  }
+
+
 }
