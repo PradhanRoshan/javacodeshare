@@ -18,8 +18,9 @@ export class UserDto{
 
 
 export class UserEditDto{
-  id: number;
+  id?: number;
   name: string;
   securityQuestion: string;
   securityAnswer: string;
+  username?: string;
 }

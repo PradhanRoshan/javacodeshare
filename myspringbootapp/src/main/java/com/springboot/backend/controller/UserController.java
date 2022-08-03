@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,6 +67,12 @@ public class UserController {
 		UserEditDto dto = new UserEditDto(info.getId(), info.getName(), 
 				info.getSecurityAnswer(), info.getSecurityQuestion());
 		return dto; 
+	}
+	
+	@PutMapping("/user/profile")
+	public void profileEdit(Principal pricipal, @RequestBody UserDto dto) {
+		String username = pricipal.getName();
+		userRepository.updateProfile(username,dto.getName(),dto.getSecurityQuestion(), dto.getSecurityAnswer());
 	}
 }
 

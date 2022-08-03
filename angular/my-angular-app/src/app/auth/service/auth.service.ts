@@ -15,12 +15,14 @@ export class AuthService {
   loginApi: string;
   signUpApi: string;
   userAPi: string;
+  profileEditAPi: string;
 
   constructor(private http: HttpClient) {
     this.username='';
     this.loginApi = 'http://localhost:8282/login';
     this.signUpApi='http://localhost:8282/user';
     this.userAPi = 'http://localhost:8282/user/username';
+    this.profileEditAPi='http://localhost:8282/user/profile';
   }
 
   isLoggedIn(): boolean{
@@ -56,6 +58,16 @@ export class AuthService {
       })
     };
     return this.http.get<UserEditDto>(this.userAPi,httpOptions);
+  }
+
+  editProfile(userEditDto: UserEditDto) :Observable<UserEditDto>{
+    let httpOptions={
+      headers : new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization' : 'basic ' + localStorage.getItem('credentials')
+      })
+    };
+     return this.http.put<UserEditDto>(this.profileEditAPi,userEditDto,httpOptions);
   }
 
 }

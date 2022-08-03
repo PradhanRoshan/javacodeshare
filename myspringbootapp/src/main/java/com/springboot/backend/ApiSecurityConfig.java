@@ -24,6 +24,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/login").authenticated()
 			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
+			.antMatchers(HttpMethod.GET, "/user/profile").authenticated()
 			.anyRequest().permitAll()
 			//.antMatchers(HttpMethod.GET, "/customers").authenticated()
 			//.antMatchers("/products").authenticated()
