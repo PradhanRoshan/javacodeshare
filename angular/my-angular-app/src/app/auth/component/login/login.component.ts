@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         next : (data)=>{
             this.user = data;
             localStorage.setItem('username',this.user.username);
+            localStorage.setItem('credentials', btoa(this.username + ':' + this.password));
             this.authService.username$.next(this.user.username);
             this.router.navigateByUrl('/dashboard');
         },

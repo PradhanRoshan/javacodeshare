@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserEditDto } from '../../model/user.model';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  credentials: string;
+  userEditDto: UserEditDto;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+      this.credentials = localStorage.getItem('credentials');
+      this.authService.getUserByUsername(this.credentials).subscribe({
+        next: (data)=>{ this.userEditDto = data;
+        console.log(this.userEditDto);
+        },
+        error: (e)=>{  }
+      });
   }
 
 }

@@ -15,3 +15,11 @@ export class UserDto{
   securityQuestion: string;
   securityAnswer: string;
 }
+
+
+export class UserEditDto{
+  id: number;
+  name: string;
+  securityQuestion: string;
+  securityAnswer: string;
+}

@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
   }
   //open / close the sidebar
   toolbarCliked(args: any) {
