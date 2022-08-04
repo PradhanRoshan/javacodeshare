@@ -30,6 +30,8 @@ import { LoginComponent } from './auth/component/login/login.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { ProfileComponent } from './auth/component/profile/profile.component';
+import { VendorComponent } from './components/vendor/vendor.component';
+import { VendorListComponent } from './components/vendor-list/vendor-list.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { ProfileComponent } from './auth/component/profile/profile.component';
     LogoutComponent,
     SignUpComponent,
     ProfileComponent,
+    VendorComponent,
+    VendorListComponent,
   ],
   imports: [
     BrowserModule,

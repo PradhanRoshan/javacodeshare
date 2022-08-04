@@ -11,6 +11,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee/employee.component';
 import { PostComponent } from './components/post/post.component';
 import { ProductComponent } from './components/product/product.component';
+import { VendorComponent } from './components/vendor/vendor.component';
 
 const routes: Routes = [
   {path:'' ,component: DashboardComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:'comments/:postId', component: CommentsComponent},
   {path: 'products' , component: ProductComponent},
   {path: 'category' , component: CategoryComponent},
+  {path: 'vendor' , component: VendorComponent},
   {path: 'employee' , component: EmployeeComponent,
                     canActivate:[AuthguardService]},
   {path:'logout' ,component: LogoutComponent},
