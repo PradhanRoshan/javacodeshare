@@ -21,8 +21,7 @@ import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
-public class UserController {
+ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -72,7 +71,8 @@ public class UserController {
 	@PutMapping("/user/profile")
 	public void profileEdit(Principal pricipal, @RequestBody UserDto dto) {
 		String username = pricipal.getName();
-		userRepository.updateProfile(username,dto.getName(),dto.getSecurityQuestion(), dto.getSecurityAnswer());
+		userRepository.updateProfile(username,dto.getName(),
+				dto.getSecurityQuestion(), dto.getSecurityAnswer());
 	}
 }
 

@@ -18,7 +18,7 @@ import com.springboot.backend.repository.CategoryRepository;
 
  
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+ 
 public class CategoryController {
 
 	@Autowired //<- Spring will wire it to CategoryRepository interface. 

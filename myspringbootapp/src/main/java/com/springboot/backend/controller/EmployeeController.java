@@ -21,8 +21,7 @@ import com.springboot.backend.dto.EmployeeStatDto;
 import com.springboot.backend.model.Employee;
 import com.springboot.backend.repository.EmployeeRepository;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
-@RestController
+ @RestController
 public class EmployeeController {
 
 	@Autowired

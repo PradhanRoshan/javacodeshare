@@ -28,7 +28,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().permitAll()
 			//.antMatchers(HttpMethod.GET, "/customers").authenticated()
 			//.antMatchers("/products").authenticated()
-			//.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN")
+			// .antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN","USER")
 			.and().httpBasic()
 			.and().csrf().disable();
 	}

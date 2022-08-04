@@ -19,8 +19,7 @@ import com.springboot.backend.model.Vendor;
 import com.springboot.backend.repository.CategoryRepository;
 import com.springboot.backend.repository.ProductRepository;
 import com.springboot.backend.repository.VendorRepository;
-@CrossOrigin(origins = {"http://localhost:4200"})
-@RestController
+ @RestController
 public class ProductController {
 
 	@Autowired
