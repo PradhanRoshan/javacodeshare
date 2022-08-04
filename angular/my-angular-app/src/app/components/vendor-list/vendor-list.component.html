@@ -1,6 +1,9 @@
 
 <ol>
   <li *ngFor="let v of vendors">
-    {{v.name}} &nbsp;&nbsp;&nbsp; Num of Products: {{v.numProducts}}
+    {{v.name}} &nbsp;&nbsp;&nbsp; Num of Products:
+    {{v.numProducts}}  &nbsp;&nbsp;&nbsp;
+    <a href="javascript::void" (click)="onVendorDelete(v.id)">
+      delete</a>
   </li>
 </ol>

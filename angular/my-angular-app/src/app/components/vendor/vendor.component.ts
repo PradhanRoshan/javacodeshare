@@ -10,7 +10,7 @@ import { VendorService } from 'src/app/service/vendor.service';
 })
 export class VendorComponent implements OnInit,OnDestroy {
 
-  vendors: Vendor[];
+  vendors: Vendor[]; //2
   subscriptions: Subscription[]=[];
   constructor(private vendorService: VendorService) {
     console.log('constructor');
@@ -27,6 +27,15 @@ export class VendorComponent implements OnInit,OnDestroy {
       })
     );
 
+  }
+
+  onVendorDelete(vid : number){
+     this.vendorService.deleteVendor(vid).subscribe({
+      next: (data)=>{
+          this.vendors = this.vendors.filter(v=>v.id != vid);
+       },
+      error: (e)=>{}
+     });
   }
 
   ngOnDestroy(): void {

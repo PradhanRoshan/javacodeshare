@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,12 +43,12 @@ public class VendorController {
 			@RequestParam(name = "size",required = false, defaultValue = "100000") Integer size ) {
 		
 		Pageable pageable=PageRequest.of(page, size);
-		List<Vendor>  list = vendorRepository.findAll(pageable).getContent(); //20
+		List<Vendor>  list = vendorRepository.findAll(pageable).getContent(); //3
 		List<VendorDto> listVDto = new ArrayList<>();
 		
-		List<Product> listProducts = productRepository.findAll();
+		List<Product> listProducts = productRepository.findAll(); //7(3), 8(3), 9(3),20(18)
 		
-		list.stream().forEach(v->{ //20
+		list.stream().forEach(v->{ //3
 			List<ProductDto> listPDto = new ArrayList<>();  //1
 			VendorDto vDto = new VendorDto(); 
 			vDto.setId(v.getId());
@@ -84,8 +85,9 @@ public class VendorController {
 		else
 			throw new RuntimeException("ID is invalid");
 	}
-	
-	public void deleteVendor(){
-		
+	@DeleteMapping("/vendor/{vid}")
+	public void deleteVendor(@PathVariable("vid") Long vid){
+		productRepository.deleteProductByVendorId(vid); 
+		vendorRepository.deleteById(vid);
 	}
 }
