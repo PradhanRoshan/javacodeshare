@@ -21,6 +21,7 @@ export class VendorService {
   }
 
   deleteVendor(vid: number):Observable<any> {
-    return this.http.delete<any>(this.deleteVendorApi + vid);
+    return this.http.delete<any>(this.deleteVendorApi
+      + vid);
   }
 }
