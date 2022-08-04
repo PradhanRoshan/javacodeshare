@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from '../service/employee.service';
 
@@ -8,12 +9,14 @@ import { EmployeeService } from '../service/employee.service';
   templateUrl: './employee-add.component.html',
   styleUrls: ['./employee-add.component.css']
 })
-export class EmployeeAddComponentRxjs implements OnInit {
+export class EmployeeAddComponentRxjs implements OnInit,OnDestroy {
 
   employeeForm :FormGroup;
   employee: Employee;
   msg:string;
+  subscriptions: Subscription[]=[];
   constructor(private employeeService: EmployeeService) { }
+
 
   ngOnInit(): void {
     this.msg='';
@@ -33,7 +36,8 @@ export class EmployeeAddComponentRxjs implements OnInit {
 
   onFormSubmit(){
     this.employee = this.employeeForm.value;
-     this.employeeService.postEmployee(this.employee).subscribe( {
+    this.subscriptions.push(
+      this.employeeService.postEmployee(this.employee).subscribe( {
         next: (data)=> {
           this.employee = data;
           this.msg='Employee added in the system';
@@ -50,7 +54,12 @@ export class EmployeeAddComponentRxjs implements OnInit {
         error: (e)=>{
           this.msg='Operation Failed';
         }
-     });
+     })
+    );
+
   }
 
+  ngOnDestroy(): void {
+     this.subscriptions.forEach(sub=>sub.unsubscribe());
+  }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from '../service/employee.service';
 
@@ -7,16 +8,20 @@ import { EmployeeService } from '../service/employee.service';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent implements OnInit,OnDestroy {
 
+  subscriptions: Subscription[];
   employees: Employee[];
   page: number;
   size:number;
   constructor(private employeeService: EmployeeService) { }
 
+
   ngOnInit(): void {
+    this.subscriptions = [];
       this.size = 5;
-      this.employeeService.page$.subscribe(value=>{
+      this.subscriptions.push(
+        this.employeeService.page$.subscribe(value=>{
           this.page = value;
           this.employeeService.getAllEmployees(this.page,this.size)
           .subscribe({
@@ -29,8 +34,11 @@ export class EmployeeComponent implements OnInit {
             }
           });
       })
+      );
+  }
 
-
+  ngOnDestroy(): void {
+     this.subscriptions.forEach(sub=>sub.unsubscribe());
   }
 
 }
