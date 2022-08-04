@@ -7,6 +7,7 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { CountryComponent } from './components/country/country.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee/employee.component';
 import { PostComponent } from './components/post/post.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'products' , component: ProductComponent},
   {path: 'category' , component: CategoryComponent},
   {path: 'vendor' , component: VendorComponent},
+  {path: 'cities' , component: CountryComponent},
   {path: 'employee' , component: EmployeeComponent,
                     canActivate:[AuthguardService]},
   {path:'logout' ,component: LogoutComponent},

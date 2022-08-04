@@ -32,6 +32,8 @@ import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
 import { ProfileComponent } from './auth/component/profile/profile.component';
 import { VendorComponent } from './components/vendor/vendor.component';
 import { VendorListComponent } from './components/vendor-list/vendor-list.component';
+import { CountryComponent } from './components/country/country.component';
+import { CityComponent } from './components/city/city.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { VendorListComponent } from './components/vendor-list/vendor-list.compon
     ProfileComponent,
     VendorComponent,
     VendorListComponent,
+    CountryComponent,
+    CityComponent,
   ],
   imports: [
     BrowserModule,
