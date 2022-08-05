@@ -9,7 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Product {
+public class Product { //product_details
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

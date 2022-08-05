@@ -1,6 +1,7 @@
 package com.springboot.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,7 +27,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
 			.antMatchers(HttpMethod.GET, "/user/profile").authenticated()
 			.anyRequest().permitAll()
-			//.antMatchers(HttpMethod.GET, "/customers").authenticated()
+			.antMatchers(HttpMethod.GET, "/customers").hasAnyAuthority("EXEC")
 			//.antMatchers("/products").authenticated()
 			// .antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN","USER")
 			.and().httpBasic()
@@ -50,6 +51,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	@Qualifier
 	public PasswordEncoder getPasswordEncoder(){
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder;

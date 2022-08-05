@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,14 @@ import com.springboot.backend.repository.UserRepository;
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder; 
+	 @Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/user")
 	public void postUser(@RequestBody UserDto userDto) {
 		 String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials())); 
 		 String username = str.split("@%")[0];
-		 String password = str.split("@%")[1];
+		 String password = str.split("@%")[1]; //potter123
 		 
 		 UserInfo info = new UserInfo(); 
 		 info.setName(userDto.getName());

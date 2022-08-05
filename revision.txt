@@ -1,0 +1,134 @@
+J2EE: Servlets and JSPs
+=======================
+ 
+LifeCycle of JSP 
+----------------
+jsp-> Servlet(.java) 
+
+
+ 
+
+JPQL , NativeSQL
+================
+
+-> JPQL queries classes , Native(SQL) queries DB table 
+[JPQL achieves DB independence]
+
+-> Uses Entity classes instead of DB tables 
+@Entity
+class Student{
+
+@Id
+private Long id; 
+
+@OneToOne
+private Department department
+}
+
+@Entity
+class Department{
+@Id
+private Long id;
+
+}
+
+=> fetch list of students that belong to certain departmentID. 
+
+
+
+
+
+=============================================================
+@Query(value="<query>",nativeQuery=true)
+@Query("<query>",nativeQuery=true)
+@Query("<query>")
+
+
+
+@GetMapping
+@PostMapping
+@PutMapping
+@DeleteMapping
+
+
+SpringBoot, 
+
+ void apiMethod(Principal principal)
+ String username=_________________________;
+
+
+
+interface Principal{
+
+ String name; //userinfo: username 
+
+ getName(){
+	
+ }
+}
+
+
+spring-boot-starter-security
+spring-starter-security
+spring-boot-security
+
+
+
+
+
+
+@RestController
+@Controller : SpringMVC
+
+
+interface EmployeeRepository _________________________________________________________
+
+extends JpaRepository<Employee,Long>
+
+
+
+Pageable pageable = PageRequest.of(page,size)
+ 
+Inbuilt Configuration classes of spring framework, which annotation should be used to let spring detect the class. 
+
+
+harry wants to configure API security in such a way that only users having EXEC roles must be able to access this API. 
+
+.antMatchers(HttpMethod.GET,"/customer").hasAnyAuthority("EXEC")__________________________
+
+
+------------------------------------------------------------------
+Pagination in his API. 
+
+Page<Employee> page = employeeRepository.findAll(pageable);
+List<Employee> list =page.getContent();
+
+
+
+-----------------------------------------------------
+@Bean
+@RestController
+@Service 
+
+-----------------------------------------------------
+JSON to Java Object : 
+
+
+
+@RequestBody :  
+
+@Get
+@Post @Put
+@Delete 
+
+--------------------------
+
+/employee?id=6
+/employee/{id}
+ /page=0&size=4
+
+
+
+
+
+

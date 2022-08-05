@@ -19,7 +19,8 @@ public interface CustomerProductRepository extends JpaRepository<CustomerProduct
 	@Query("select cp.product.name from CustomerProduct cp where cp.customer.id=?1")
 	List<String> getProductsByCustomerId(Long id);
 
-	@Query(value="select * from customer where id IN (select customer_id from customer_product where product_id=?1)", nativeQuery = true)
+	@Query(value="select * from customer where id IN (select customer_id from customer_product where product_id=?1)"
+			, nativeQuery = true)
 	List<Object> getCustomersByProductIdNative(Long pid);
 
 	@Query("select cp.customer from CustomerProduct cp where cp.product.id=?1")
