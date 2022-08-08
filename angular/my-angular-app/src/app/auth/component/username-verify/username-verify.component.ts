@@ -49,7 +49,7 @@ export class UsernameVerifyComponent implements OnInit {
       .subscribe({
         next:(data=>{
             if(data == true){
-                this.authService.username$.next(this.username);
+                this.authService.user$.next(this.username);
                 this.router.navigateByUrl('/password-reset-form');
             }
             else{

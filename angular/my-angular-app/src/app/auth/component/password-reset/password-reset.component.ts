@@ -19,7 +19,7 @@ export class PasswordResetComponent implements OnInit{
     //let username = this.actRouter.snapshot.params['username'];
     //console.log(this.actRouter.snapshot.paramMap['params']['username']);
     //console.log(this.actRouter.snapshot.params['username']);
-    this.authService.username$.subscribe(data=>{
+    this.authService.user$.subscribe(data=>{
         this.username=data;
 
     })
