@@ -84,9 +84,19 @@ import com.springboot.backend.repository.UserRepository;
 		return dto; 
 	}
 	
-	@GetMapping("/verify-security-answer")
-	public void verifySecurityQuestion() {
-		
+	@GetMapping("/validate-security-answer/{encodedText}")
+	public boolean verifySecurityAnswer(@PathVariable("encodedText") String encodedText) {
+		boolean status=false;
+		String str = new String(Base64.getDecoder().decode(encodedText)); 
+		//username + '--'+answer
+		String[] sarr =str.split("--");
+		String username = sarr[0]; 
+		String answer=sarr[1];
+		UserInfo info =userRepository.getByUsername(username);
+		if(info.getSecurityAnswer().equalsIgnoreCase(answer)) {
+			status=true; 
+		}
+		return status; 
 	}
 }
 

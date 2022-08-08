@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User, UserDto, UserEditDto, UserSecurityDto } from '../model/user.model';
 
 @Injectable({
@@ -17,14 +18,15 @@ export class AuthService {
   userAPi: string;
   profileEditAPi: string;
   userSecurityInfoApi: string;
-
+  securityAnswerValidationApi:string;
   constructor(private http: HttpClient) {
     this.username='';
-    this.loginApi = 'http://localhost:8282/login';
+    this.loginApi = environment.serverUrl +'/login';
     this.signUpApi='http://localhost:8282/user';
     this.userAPi = 'http://localhost:8282/user/username';
     this.profileEditAPi='http://localhost:8282/user/profile';
     this.userSecurityInfoApi='http://localhost:8282/user/security/info/';
+    this.securityAnswerValidationApi=environment.serverUrl + '/validate-security-answer/'
   }
 
   isLoggedIn(): boolean{
@@ -74,6 +76,12 @@ export class AuthService {
 
   getUserSecurityDetailsByUsername(username: string) :Observable<UserSecurityDto>{
      return this.http.get<UserSecurityDto>(this.userSecurityInfoApi + username);
+  }
+
+  validateSecurityAnswer(username:string, answer: string): Observable<boolean> {
+     let encodedText= btoa(username + '--'+answer);
+
+     return this.http.get<boolean>(this.securityAnswerValidationApi + encodedText);
   }
 
 }

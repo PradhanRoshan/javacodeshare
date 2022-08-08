@@ -33,6 +33,7 @@ const routes: Routes = [
   {path:'profile' ,component: ProfileComponent,
                   canActivate:[AuthguardService] },
   {path:'password-reset' ,component: UsernameVerifyComponent},
+  {path:'password-reset-form' ,component: PasswordResetComponent},
 ];
 
 @NgModule({

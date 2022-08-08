@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserSecurityDto } from '../../model/user.model';
 import { AuthService } from '../../service/auth.service';
 
@@ -16,7 +17,7 @@ export class UsernameVerifyComponent implements OnInit {
   answer: string;
   showSecurityBox: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.error_msg='';
@@ -43,5 +44,20 @@ export class UsernameVerifyComponent implements OnInit {
 
   onQuestionSubmit(){
 
+      this.authService.validateSecurityAnswer(this.username, this.answer)
+      .subscribe({
+        next:(data=>{
+            if(data == true){
+                this.router.navigateByUrl('/password-reset-form')
+            }
+            else{
+              this.authService.message$.next('Security Info could not be verified')
+              this.router.navigateByUrl('/login');
+            }
+         }),
+        error: (e)=>{
+
+        }
+      });
   }
 }
