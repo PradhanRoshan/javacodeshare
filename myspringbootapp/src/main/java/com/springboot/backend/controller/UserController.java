@@ -75,5 +75,18 @@ import com.springboot.backend.repository.UserRepository;
 		userRepository.updateProfile(username,dto.getName(),
 				dto.getSecurityQuestion(), dto.getSecurityAnswer());
 	}
+	
+	@GetMapping("/user/security/info/{username}")
+	public UserEditDto getUserInfo(@PathVariable("username") String username) {
+		UserInfo info =userRepository.getByUsername(username);
+		UserEditDto dto = new UserEditDto(info.getId(), info.getName(), 
+				"", info.getSecurityQuestion());
+		return dto; 
+	}
+	
+	@GetMapping("/verify-security-answer")
+	public void verifySecurityQuestion() {
+		
+	}
 }
 

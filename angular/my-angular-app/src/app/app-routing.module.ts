@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/component/login/login.component';
 import { LogoutComponent } from './auth/component/logout/logout.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
 import { ProfileComponent } from './auth/component/profile/profile.component';
 import { SignUpComponent } from './auth/component/sign-up/sign-up.component';
+import { UsernameVerifyComponent } from './auth/component/username-verify/username-verify.component';
 import { AuthguardService } from './auth/service/authguard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { CommentsComponent } from './components/comments/comments.component';
@@ -30,6 +32,7 @@ const routes: Routes = [
   {path:'sign-up' ,component: SignUpComponent},
   {path:'profile' ,component: ProfileComponent,
                   canActivate:[AuthguardService] },
+  {path:'password-reset' ,component: UsernameVerifyComponent},
 ];
 
 @NgModule({

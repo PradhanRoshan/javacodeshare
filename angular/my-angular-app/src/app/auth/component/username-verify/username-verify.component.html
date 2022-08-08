@@ -1,0 +1,9 @@
+<h1>Verify the Username</h1>
+<span *ngIf="error_msg != ''">{{error_msg}} <br /></span>
+<label>Enter the Username: </label>
+<input type="text" [(ngModel)]="username">
+<br /><br />
+<button (click)="onSubmit()"
+    [disabled]="!status">Verify Username</button>
+
+

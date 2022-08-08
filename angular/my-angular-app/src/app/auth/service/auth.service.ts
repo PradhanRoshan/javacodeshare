@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User, UserDto, UserEditDto } from '../model/user.model';
+import { User, UserDto, UserEditDto, UserSecurityDto } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AuthService {
   signUpApi: string;
   userAPi: string;
   profileEditAPi: string;
+  userSecurityInfoApi: string;
 
   constructor(private http: HttpClient) {
     this.username='';
@@ -23,6 +24,7 @@ export class AuthService {
     this.signUpApi='http://localhost:8282/user';
     this.userAPi = 'http://localhost:8282/user/username';
     this.profileEditAPi='http://localhost:8282/user/profile';
+    this.userSecurityInfoApi='http://localhost:8282/user/security/info/';
   }
 
   isLoggedIn(): boolean{
@@ -68,6 +70,10 @@ export class AuthService {
       })
     };
      return this.http.put<UserEditDto>(this.profileEditAPi,userEditDto,httpOptions);
+  }
+
+  getUserSecurityDetailsByUsername(username: string) :Observable<UserSecurityDto>{
+     return this.http.get<UserSecurityDto>(this.userSecurityInfoApi + username);
   }
 
 }

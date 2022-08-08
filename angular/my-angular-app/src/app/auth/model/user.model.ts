@@ -24,3 +24,10 @@ export class UserEditDto{
   securityAnswer: string;
   username?: string;
 }
+
+export class UserSecurityDto{
+  id?: number;
+  name: string;
+  securityQuestion: string;
+  username?: string;
+}

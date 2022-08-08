@@ -34,6 +34,8 @@ import { VendorComponent } from './components/vendor/vendor.component';
 import { VendorListComponent } from './components/vendor-list/vendor-list.component';
 import { CountryComponent } from './components/country/country.component';
 import { CityComponent } from './components/city/city.component';
+import { PasswordResetComponent } from './auth/component/password-reset/password-reset.component';
+import { UsernameVerifyComponent } from './auth/component/username-verify/username-verify.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { CityComponent } from './components/city/city.component';
     VendorListComponent,
     CountryComponent,
     CityComponent,
+    PasswordResetComponent,
+    UsernameVerifyComponent,
   ],
   imports: [
     BrowserModule,

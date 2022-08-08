@@ -38,7 +38,7 @@ public class VendorController {
 	}
 	
 	@GetMapping("/vendor") 
-	public List<VendorDto> getAllVendors(
+	public List<VendorDto> getAllVendors(   //page=0, size=10  Page=(1-10)
 			@RequestParam(name = "page",required = false, defaultValue = "0") Integer page, 
 			@RequestParam(name = "size",required = false, defaultValue = "100000") Integer size ) {
 		
