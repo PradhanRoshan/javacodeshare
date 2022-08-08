@@ -1,5 +1,7 @@
 package com.springboot.backend.repository;
 
+import java.time.LocalDate;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +21,11 @@ public interface UserRepository extends JpaRepository<UserInfo, Long>{
 			+ " where u.username=?1")
 	void updateProfile(String username, String name, String securityQuestion, 
 			String securityAnswer);
+
+	@Transactional
+	@Modifying
+	@Query("update UserInfo u SET u.password=?2,u.passwordLastReset=?3 where u.username=?1")
+	void resetPassword(String username, String password,LocalDate date);
 
 	 
 }

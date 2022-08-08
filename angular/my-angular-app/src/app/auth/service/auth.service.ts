@@ -19,6 +19,8 @@ export class AuthService {
   profileEditAPi: string;
   userSecurityInfoApi: string;
   securityAnswerValidationApi:string;
+  passwordResetAPi: string;
+
   constructor(private http: HttpClient) {
     this.username='';
     this.loginApi = environment.serverUrl +'/login';
@@ -26,7 +28,8 @@ export class AuthService {
     this.userAPi = 'http://localhost:8282/user/username';
     this.profileEditAPi='http://localhost:8282/user/profile';
     this.userSecurityInfoApi='http://localhost:8282/user/security/info/';
-    this.securityAnswerValidationApi=environment.serverUrl + '/validate-security-answer/'
+    this.securityAnswerValidationApi=environment.serverUrl + '/validate-security-answer/';
+    this.passwordResetAPi=environment.serverUrl +'/user/reset-password/';
   }
 
   isLoggedIn(): boolean{
@@ -82,6 +85,11 @@ export class AuthService {
      let encodedText= btoa(username + '--'+answer);
 
      return this.http.get<boolean>(this.securityAnswerValidationApi + encodedText);
+  }
+
+  resetPassword(username: string, password: string):Observable<any> {
+     let encodedText= btoa(username + '--'+password);
+      return this.http.put(this.passwordResetAPi + encodedText,{});
   }
 
 }

@@ -44,11 +44,13 @@ export class UsernameVerifyComponent implements OnInit {
 
   onQuestionSubmit(){
 
-      this.authService.validateSecurityAnswer(this.username, this.answer)
+      this.authService.validateSecurityAnswer(this.username,
+        this.answer)
       .subscribe({
         next:(data=>{
             if(data == true){
-                this.router.navigateByUrl('/password-reset-form')
+                this.authService.username$.next(this.username);
+                this.router.navigateByUrl('/password-reset-form');
             }
             else{
               this.authService.message$.next('Security Info could not be verified')
