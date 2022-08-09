@@ -8,6 +8,11 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String sayHello() { 
-		return "index.jsp";
+		return "index"; //prefix: WEB-INF/jsps/       suffix: .jsp
+	}
+	
+	@RequestMapping("/products")
+	public String showProducts() {
+		return "products";
 	}
 }
