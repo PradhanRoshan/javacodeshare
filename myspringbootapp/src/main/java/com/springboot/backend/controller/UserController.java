@@ -22,6 +22,7 @@ import com.springboot.backend.model.UserInfo;
 import com.springboot.backend.repository.UserRepository;
 
 @RestController
+
  public class UserController {
 
 	@Autowired
