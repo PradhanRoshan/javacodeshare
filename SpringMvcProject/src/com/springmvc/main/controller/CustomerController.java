@@ -30,11 +30,11 @@ public class CustomerController {
 		 * 1. Attach the values to customer object
 		 * 2. Reach out to persistence layer via service and insert the object in DB  
 		 */
-		
 		customer.setName(name);
 		customer.setCity(city);
 		customer.setAge(age);
 		
+		customerService.insertCustomer(customer); 
 		
 	}
 }
