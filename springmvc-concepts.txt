@@ -1,0 +1,138 @@
+2004: J2EE Tech: servlets and jsps / jdbc 
+2008: Spring-XML 
+2010: Spring-Java
+2013: Spring MVC : jsp + Rest APIs
+2014: Spring boot: Auto Config 
+2016: Spring Data JPA : JPQL 
+
+Spring MVC
+: Spring 5.x
+ 
+IoC framework: DI(inbuild classes and interfaces of Spring) + Autowire(custom classes and Interfaces)
+ 
+Dynamic Web Project  : Maven(download dependencies) : Spring MVC Project  
+
+Configuration: XML / Java  
+==========================
+
+base-package => DispatcherServletInitializer
+
+http://localhost:8484/SpringMvcProject/
+http://localhost:8484/products
+http://localhost:8484/SpringMvcProject/SpringMvcProject/products
+http://localhost:8484/SpringMvcProject/products.jsp
+
+
+Task List
+=========
+1. Pass the data from Controller to JSP 
+2. Read the data through forms(JSP to Controller)
+3. Create a central config for DB access(JDBCTemplate)
+
+
+1. Pass the data from Controller to JSP 
+
+3 ways of doing so: 
+
+1. Model interface 
+2. HttpServletRequest class
+3. ModelAndView class 
+
+ 
+
+UnsatisfiedDependencyException
+
+http://localhost:8484/SpringMvcProject/process-add-customer?cname=jim&ccity=scranton
+
+Project Flow
+=============
+
+Step 1: 
+-------
+AppInitializer : AbstractAnnotationConfigDispatcherServletInitializer
+
+Step 2:
+------- 
+ControllerConfig : WebMvcConfigurer
+
+//Here, we inform spring about the packages that it needs to scan where it will find controllers. 
+@ComponentScan(basePackages = {"com.springmvc.main.controller","com.springmvc.main.model",
+		"com.springmvc.main.service"})
+
+Step 3: 
+-------
+@Controller
+MainController
+
+//Here, we create methods for request mapping 
+Ex. 
+@RequestMapping("/")     <-- this method will be called when '/' resource is requested in the URL
+	public String viewIndex() {    
+		 return "index";
+	}
+
+URL: http://localhost:8484/SpringMvcProject/
+
+
+Concepts
+========
+Passing attributes from Controllers to jsps. 
+--------------------------------------------
+1. Model interface
+	ex. model.addAttribute("username", "harry potter");
+
+2. HttpServletRequest [abstract class]
+	ex. request.setAttribute("username", "harry potter");
+
+3. ModelAndView class 
+	ex. mav.addObject("username", "harry potter");
+
+Note: Irrespective of the above method used for passing of attribute, we always read the attribute
+in JSP in following manner: 
+
+<p>Welcome <%=request.getAttribute("username") %></p>
+
+Inversion of Control framework (IoC): Dependency Injection(DI) and AutoWiring(@autowired)
+-----------------------------------------------------------------------------------------
+public String viewIndex(Model model) { } 
+								<-- Model dependency is injected in viewIndex() method 
+public String viewIndex(HttpServletRequest request) { }
+								<-- HttpServletRequest dependency is injected in viewIndex() method 
+
+
+ @Autowired       <-- Object 'v' will now be instantiated and managed by Spring. 
+ private Vendor v;
+
+ @Component
+ class Vendor{}
+
+ @ComponentScan(basePackages = {"<add entry of Vendor package>"}) -- IN config file
+
+
+Resolving Views for Security
+----------------------------
+-> We keep jsps views in WEB-INF (private) instead of Web-Content(public). 
+
+We can centrally configure the change in path of JSP files. 
+
+   @Bean   
+	public InternalResourceViewResolver viewResolver() {
+		InternalResourceViewResolver vr = new InternalResourceViewResolver();
+		vr.setPrefix("WEB-INF/jsps/");
+		vr.setSuffix(".jsp");
+		return vr;
+	}
+
+whenever jsp name is returned from any request mapping method as below: 
+   
+   @RequestMapping("/")     
+	public String viewIndex() {    
+		 return "index";
+	}
+
+Spring will add prefix and suffix to it. 
+complete JSP path: WEB-INF/jsps/index.jsp
+
+
+Centrally configuring the DB
+-----------------------------
