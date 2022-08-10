@@ -7,13 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Products</h1>
-<%
-String[] str = (String[])request.getAttribute("namesArr"); 
-for(String s : str) {
-	out.println(s);
-} 
-	 %>
-
+<h1>Vendors</h1>
+<%=request.getAttribute("vendorObj") %>
 </body>
 </html>

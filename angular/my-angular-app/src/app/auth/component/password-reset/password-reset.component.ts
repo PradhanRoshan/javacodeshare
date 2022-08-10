@@ -27,7 +27,8 @@ export class PasswordResetComponent implements OnInit{
 
   onReset(){
       if(this.password === this.repassword){
-          this.authService.resetPassword(this.username,this.password).subscribe({
+          this.authService.resetPassword(this.username,this.password)
+          .subscribe({
             next: (data)=>{
                 this.authService.message$.next('Password Reset Successful, Please Login!!')
                 this.router.navigateByUrl('/login');

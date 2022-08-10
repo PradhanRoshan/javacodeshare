@@ -8,6 +8,8 @@
 </head>
 <body>
 <h1>Hello Spring!!! finally... LOGIN</h1>
-<a href="<%=request.getContextPath() %>/products">products</a>
+<p>Welcome <%=request.getAttribute("username") %></p>
+<a href="<%=request.getContextPath() %>/products">products</a> <br />
+<a href="<%=request.getContextPath() %>/vendors">vendors</a>
 </body>
 </html>
