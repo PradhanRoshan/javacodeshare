@@ -13,7 +13,7 @@ import com.springmvc.main.model.Vendor;
 @Controller
 public class MainController {
 	 @Autowired
-	private Vendor v;
+	private Vendor v; //instantiation - destroying v=null System.gc()
 	
 	@RequestMapping("/")
 	public String viewIndex(Model model) {    //Dependency Injection (DI) in spring-mvc
@@ -41,6 +41,8 @@ public class MainController {
 		mav.setViewName("vendors");
 		return mav;
 	}
+	
+	
 }
 
 

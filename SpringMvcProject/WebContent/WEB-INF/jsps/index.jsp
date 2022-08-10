@@ -10,6 +10,7 @@
 <h1>Hello Spring!!! finally... LOGIN</h1>
 <p>Welcome <%=request.getAttribute("username") %></p>
 <a href="<%=request.getContextPath() %>/products">products</a> <br />
-<a href="<%=request.getContextPath() %>/vendors">vendors</a>
+<a href="<%=request.getContextPath() %>/vendors">vendors</a><br />
+<a href="<%=request.getContextPath() %>/add-customer">Add Customer</a>
 </body>
 </html>
