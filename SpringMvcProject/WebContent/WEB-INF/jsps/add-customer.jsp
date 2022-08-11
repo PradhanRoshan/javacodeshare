@@ -19,5 +19,7 @@
 <input type="submit" value="Add Customer">
 
 </form>
+<hr>
+<a href="<%=request.getContextPath() %>/view-customers">View Customers</a>
 </body>
 </html>

@@ -11,6 +11,7 @@
 <p>Welcome <%=request.getAttribute("username") %></p>
 <a href="<%=request.getContextPath() %>/products">products</a> <br />
 <a href="<%=request.getContextPath() %>/vendors">vendors</a><br />
-<a href="<%=request.getContextPath() %>/add-customer">Add Customer</a>
+<a href="<%=request.getContextPath() %>/add-customer">Add Customer</a> <br />
+<a href="<%=request.getContextPath() %>/view-customers">View Customers</a>
 </body>
 </html>

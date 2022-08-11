@@ -1,5 +1,7 @@
 package com.springmvc.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class CustomerService {
 		//reach out to persistence class: DB 
 		
 		customerDB.insertCustomer(customer);
+	}
+	public List<Customer> fetchAllCustomers() {
+		 
+		return customerDB.fetchAllCustomers();
 	}
 	
 }

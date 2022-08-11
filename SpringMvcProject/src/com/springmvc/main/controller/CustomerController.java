@@ -1,5 +1,7 @@
 package com.springmvc.main.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,5 +42,13 @@ public class CustomerController {
 		customerService.insertCustomer(customer); 
 		model.addAttribute("msg", "Customer added in DB"); 
 		return "add-customer";
+	}
+	
+	@RequestMapping("/view-customers")
+	public String fetchAllCustomers(Model model) {
+		//go to DB via service and fetch customers as List<Customer>
+		List<Customer> list = customerService.fetchAllCustomers();
+		model.addAttribute("customer_list",list);
+		return "customers"; 
 	}
 }
