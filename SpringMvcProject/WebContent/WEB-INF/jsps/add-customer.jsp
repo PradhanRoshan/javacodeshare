@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>Add Customer</h1>
+<%=request.getAttribute("msg") %>
 <form method="get" action="<%=request.getContextPath() %>/process-add-customer">
 <label>Enter Name: </label>
 <input type="text" name="cname"> <br /> <br />

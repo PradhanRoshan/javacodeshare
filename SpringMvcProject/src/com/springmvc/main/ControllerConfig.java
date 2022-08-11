@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.springmvc.main.controller","com.springmvc.main.model",
-		"com.springmvc.main.service"})
+		"com.springmvc.main.service","com.springmvc.main.persistence"})
 public class ControllerConfig implements WebMvcConfigurer{
 
 	@Bean   
@@ -25,7 +25,7 @@ public class ControllerConfig implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public DataSource getDataSource() {
+	public DataSource getDataSource() { //DataSource ds = new DriverManagerDataSource();
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setUrl("jdbc:mysql://localhost:3306/mavericks_boot_db");
 		ds.setUsername("root");

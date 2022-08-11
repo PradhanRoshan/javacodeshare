@@ -2,6 +2,7 @@ package com.springmvc.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,14 +19,16 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@RequestMapping("/add-customer")
-	public String showAddCustomer() {
+	public String showAddCustomer(Model model) {
+		model.addAttribute("msg", ""); 
 		return "add-customer";
 	}
 	
 	@RequestMapping("/process-add-customer")
-	public void processAddCustomer(@RequestParam("cname") String name,
+	public String processAddCustomer(@RequestParam("cname") String name,
 								   @RequestParam("ccity") String city,
-								   @RequestParam("cage") int age) {
+								   @RequestParam("cage") int age, 
+								   Model model) {
 		/*
 		 * 1. Attach the values to customer object
 		 * 2. Reach out to persistence layer via service and insert the object in DB  
@@ -35,6 +38,7 @@ public class CustomerController {
 		customer.setAge(age);
 		
 		customerService.insertCustomer(customer); 
-		
+		model.addAttribute("msg", "Customer added in DB"); 
+		return "add-customer";
 	}
 }
