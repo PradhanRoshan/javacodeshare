@@ -27,8 +27,11 @@ public class CustomerService {
 		
 	}
 	public Customer fetchCustomerById(Long id) {
-		 
 		return  customerDB.fetchCustomerById(id);
+	}
+	public void editCustomer(Customer customer) {
+		
+		customerDB.editCustomer(customer);
 	}
 	
 }

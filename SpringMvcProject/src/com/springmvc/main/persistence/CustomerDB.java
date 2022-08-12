@@ -57,6 +57,17 @@ public class CustomerDB {
 		
 		return jdbc.query(sql, map, new A()).get(0);
 	}
+
+	public void editCustomer(Customer customer) {
+		String sql="update customerInfo SET name=:name,age=:age,city=:city where id=:id";
+		Map<String,Object> map = new HashMap<>();
+		map.put("id",customer.getId());
+		map.put("name",customer.getName());
+		map.put("age",customer.getAge());
+		map.put("city",customer.getCity());
+		
+		jdbc.update(sql, map);
+	}
 }
 
 class A implements RowMapper<Customer>{
