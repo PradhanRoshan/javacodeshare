@@ -51,4 +51,19 @@ public class CustomerController {
 		model.addAttribute("customer_list",list);
 		return "customers"; 
 	}
+	 
+	@RequestMapping("/delete-customer")
+	public String deleteCustomer(@RequestParam("id") Long id, Model model) {
+		customerService.deleteCustomer(id);
+		List<Customer> list = customerService.fetchAllCustomers();
+		model.addAttribute("customer_list",list);
+		return "customers";
+	}
+	
+	@RequestMapping("/edit-customer")
+	public void editCustomer(@RequestParam("id") Long id, Model model) {
+		Customer customer = customerService.fetchCustomerById(id);
+		System.out.println(customer);
+		//display the form which is auto-filled with above customer Info
+	}
 }

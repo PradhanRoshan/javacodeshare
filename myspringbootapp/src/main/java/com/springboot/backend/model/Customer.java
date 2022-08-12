@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -14,15 +14,18 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; 
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String name; 
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String city; 
 	
-	@Column(nullable = false)
+	@Column(nullable = true) 
 	private int age;
-	 
+	
+	@OneToOne
+	private UserInfo user;
+	
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -68,11 +71,20 @@ public class Customer {
 		this.age = age;
 	}
 
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", city=" + city + ", age=" + age + "]";
-	} 
-	
+		return "Customer [id=" + id + ", name=" + name + ", city=" + city + ", age=" + age + ", user=" + user + "]";
+	}
+
+	 
 	
 	
 }

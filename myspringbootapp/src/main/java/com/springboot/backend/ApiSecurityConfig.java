@@ -23,6 +23,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/customer").authenticated()
 			.antMatchers(HttpMethod.GET, "/login").authenticated()
 			.antMatchers(HttpMethod.GET, "/user/username").authenticated()
 			.antMatchers(HttpMethod.GET, "/user/profile").authenticated()
@@ -51,7 +52,6 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	@Qualifier
 	public PasswordEncoder getPasswordEncoder(){
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder;

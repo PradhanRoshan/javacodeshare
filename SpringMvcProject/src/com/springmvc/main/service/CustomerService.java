@@ -22,5 +22,13 @@ public class CustomerService {
 		 
 		return customerDB.fetchAllCustomers();
 	}
+	public void deleteCustomer(Long id) {
+		customerDB.deleteCustomer(id);
+		
+	}
+	public Customer fetchCustomerById(Long id) {
+		 
+		return  customerDB.fetchCustomerById(id);
+	}
 	
 }

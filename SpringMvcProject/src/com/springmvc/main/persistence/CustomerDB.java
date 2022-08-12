@@ -42,6 +42,21 @@ public class CustomerDB {
 		String sql="select * from customerInfo";
 		return jdbc.query(sql, new A());
 	}
+
+	public void deleteCustomer(Long id) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("id",id);
+		String sql="delete from customerInfo where id=:id";
+		jdbc.update(sql, map);
+	}
+
+	public Customer fetchCustomerById(Long id) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("id",id);
+		String sql="select * from customerInfo where id=:id"; 
+		
+		return jdbc.query(sql, map, new A()).get(0);
+	}
 }
 
 class A implements RowMapper<Customer>{

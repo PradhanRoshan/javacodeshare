@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.backend.dto.UserDto;
 import com.springboot.backend.dto.UserEditDto;
 import com.springboot.backend.dto.UserInfoDto;
+import com.springboot.backend.model.Customer;
 import com.springboot.backend.model.UserInfo;
+import com.springboot.backend.repository.CustomerRepository;
 import com.springboot.backend.repository.UserRepository;
 
 @RestController
@@ -31,6 +31,9 @@ import com.springboot.backend.repository.UserRepository;
 	 @Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	 @Autowired
+	 private CustomerRepository customerRepository; 
+	 
 	@PostMapping("/user")
 	public void postUser(@RequestBody UserDto userDto) {
 		 String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials())); 
@@ -47,6 +50,13 @@ import com.springboot.backend.repository.UserRepository;
 		 info.setRole(userDto.getRole());
 
 		 userRepository.save(info); 
+		 
+		 if(info.getRole().equalsIgnoreCase("customer")) {
+			 Customer customer = new Customer();
+			 customer.setName(info.getName());
+			 customer.setUser(info);
+			 customerRepository.save(customer);
+		 }
 		 
 	}
 	

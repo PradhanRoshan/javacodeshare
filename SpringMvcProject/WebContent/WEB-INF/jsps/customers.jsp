@@ -15,8 +15,16 @@
 	List<Customer> list = (List<Customer>) request.getAttribute("customer_list");
 
 	for(Customer c : list){
-		out.println(c + "<br />"); 
+		out.println(c ); 
+%>
+<a href="<%=request.getContextPath() %>/delete-customer?id=<%=c.getId() %>">delete</a>
+&nbsp;&nbsp;&nbsp;
+<a href="<%=request.getContextPath() %>/edit-customer?id=<%=c.getId() %>">edit</a>
+<br />
+<%		
 	}
 %>
+
+
 </body>
 </html>
