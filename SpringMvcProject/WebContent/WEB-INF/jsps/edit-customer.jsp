@@ -22,10 +22,8 @@
 <label>Enter Age: </label>
 <input type="text" name="cage" value="<%=customer.getAge() %>" > <br /> <br />
 <input type="submit" value="Edit Customer">
-
 </form>
 <hr>
 <a href="<%=request.getContextPath() %>/view-customers">View Customers</a>
-
 </body>
 </html>

@@ -64,8 +64,7 @@ public class CustomerDB {
 		map.put("id",customer.getId());
 		map.put("name",customer.getName());
 		map.put("age",customer.getAge());
-		map.put("city",customer.getCity());
-		
+		map.put("city",customer.getCity());		
 		jdbc.update(sql, map);
 	}
 }
