@@ -10,6 +10,20 @@ public class Employee {
 	private String department;
 	private double salary;
 
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Employee(Long id, String name, String city, String department, double salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.department = department;
+		this.salary = salary;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -11,10 +11,13 @@
 <body>
 <h1>Employee List</h1>
 
- <%=request.getAttribute("list") %>
+ 
 <% 
- List<Employee> list = (List<Employee>) request.getAttribute("list");
+ List<Object> list =  (List<Object>) request.getAttribute("list");
 
+	for(Object o : list){
+		out.println(o + "<br />");
+	}
  
  %>
 </body>
